@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://veryjj.github.io/2018/03/17/Hexo%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7/</loc>
+        <lastmod>2018-03-17T13:17:08.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://veryjj.github.io/2018/03/17/Hexo%E8%A3%85%E4%BF%AE%E8%AE%B0%E5%BD%95/</loc>
         <lastmod>2018-03-17T13:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -25,14 +33,6 @@
     <url>
         <loc>https://veryjj.github.io/2018/03/15/Git%20%E5%9C%BA%E6%99%AF%E5%8C%96%E4%B8%8B%E7%9A%84%E5%91%BD%E4%BB%A4%E5%A4%87%E5%BF%98/</loc>
         <lastmod>2018-03-15T16:17:52.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://veryjj.github.io/2018/03/15/hello-world/</loc>
-        <lastmod>2018-03-15T15:38:42.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
