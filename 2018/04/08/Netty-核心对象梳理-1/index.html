@@ -99,7 +99,7 @@
 <meta property="og:image" content="https://veryjj.github.io/2018/04/08/Netty-核心对象梳理-1/img-1.png">
 <meta property="og:image" content="https://veryjj.github.io/2018/04/08/Netty-核心对象梳理-1/img-3.png">
 <meta property="og:image" content="https://veryjj.github.io/2018/04/08/Netty-核心对象梳理-1/img-2.png">
-<meta property="og:updated_time" content="2018-04-11T08:09:33.000Z">
+<meta property="og:updated_time" content="2018-04-11T08:30:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty 核心对象梳理-1">
 <meta name="twitter:description" content="《Netty In Action》阅读笔记摘要">
@@ -562,6 +562,23 @@
 <p>  如果未能获取到一个ByteBufAllocator的引用，Netty提供一个简单的Unpooled工具类，它提供创建未池化的ByteBuf实例。</p>
 </li>
 </ul>
+<hr>
+<h2 id="关于-ChannelFuture-和-ChannelPromise"><a href="#关于-ChannelFuture-和-ChannelPromise" class="headerlink" title="关于 ChannelFuture 和 ChannelPromise"></a>关于 ChannelFuture 和 ChannelPromise</h2><ul>
+<li><p>ChannelFuture</p>
+<ul>
+<li>read-only</li>
+<li>没有返回值的异步通知、调用</li>
+<li>DefaultFutureListeners -&gt; listeners[N]</li>
+</ul>
+</li>
+<li><p>ChannelPromise</p>
+<ul>
+<li>writeable</li>
+<li>可写异步执行结果的通知、调用</li>
+<li>notifyListenerNow -&gt; 回到Listeners -&gt; 取出对应的Channel进行回调操作</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -845,7 +862,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-Netty"><span class="nav-number">1.</span> <span class="nav-text">What is Netty</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Netty是完全异步和事件驱动的"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Netty是完全异步和事件驱动的</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty-核心组件"><span class="nav-number">2.</span> <span class="nav-text">Netty 核心组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">2.1.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">2.2.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回调"><span class="nav-number">2.3.</span> <span class="nav-text">回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelFuture"><span class="nav-number">2.4.</span> <span class="nav-text">ChannelFuture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelHandler"><span class="nav-number">2.5.</span> <span class="nav-text">ChannelHandler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number">2.6.</span> <span class="nav-text">PS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty的组件和设计"><span class="nav-number">3.</span> <span class="nav-text">Netty的组件和设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel-接口"><span class="nav-number">3.1.</span> <span class="nav-text">Channel 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventLoopGroup-接口"><span class="nav-number">3.2.</span> <span class="nav-text">EventLoopGroup 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventLoop-接口"><span class="nav-number">3.3.</span> <span class="nav-text">EventLoop 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelFuture-接口"><span class="nav-number">3.4.</span> <span class="nav-text">ChannelFuture 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelHandler-接口"><span class="nav-number">3.5.</span> <span class="nav-text">ChannelHandler 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelPipeline-接口"><span class="nav-number">3.6.</span> <span class="nav-text">ChannelPipeline 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码器和解码器"><span class="nav-number">3.7.</span> <span class="nav-text">编码器和解码器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引导（Bootstrap）"><span class="nav-number">3.8.</span> <span class="nav-text">引导（Bootstrap）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我的理解"><span class="nav-number">3.9.</span> <span class="nav-text">我的理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ByteBuf"><span class="nav-number">4.</span> <span class="nav-text">ByteBuf</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-Netty"><span class="nav-number">1.</span> <span class="nav-text">What is Netty</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Netty是完全异步和事件驱动的"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">Netty是完全异步和事件驱动的</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty-核心组件"><span class="nav-number">2.</span> <span class="nav-text">Netty 核心组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel"><span class="nav-number">2.1.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">2.2.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回调"><span class="nav-number">2.3.</span> <span class="nav-text">回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelFuture"><span class="nav-number">2.4.</span> <span class="nav-text">ChannelFuture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelHandler"><span class="nav-number">2.5.</span> <span class="nav-text">ChannelHandler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number">2.6.</span> <span class="nav-text">PS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty的组件和设计"><span class="nav-number">3.</span> <span class="nav-text">Netty的组件和设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel-接口"><span class="nav-number">3.1.</span> <span class="nav-text">Channel 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventLoopGroup-接口"><span class="nav-number">3.2.</span> <span class="nav-text">EventLoopGroup 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EventLoop-接口"><span class="nav-number">3.3.</span> <span class="nav-text">EventLoop 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelFuture-接口"><span class="nav-number">3.4.</span> <span class="nav-text">ChannelFuture 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelHandler-接口"><span class="nav-number">3.5.</span> <span class="nav-text">ChannelHandler 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ChannelPipeline-接口"><span class="nav-number">3.6.</span> <span class="nav-text">ChannelPipeline 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码器和解码器"><span class="nav-number">3.7.</span> <span class="nav-text">编码器和解码器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引导（Bootstrap）"><span class="nav-number">3.8.</span> <span class="nav-text">引导（Bootstrap）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我的理解"><span class="nav-number">3.9.</span> <span class="nav-text">我的理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ByteBuf"><span class="nav-number">4.</span> <span class="nav-text">ByteBuf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于-ChannelFuture-和-ChannelPromise"><span class="nav-number">5.</span> <span class="nav-text">关于 ChannelFuture 和 ChannelPromise</span></a></li></ol></div>
             
 
           </div>
