@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://veryjj.github.io/"/>
-  <updated>2018-04-11T08:30:56.000Z</updated>
+  <updated>2018-04-22T09:23:15.000Z</updated>
   <id>https://veryjj.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Dubbo源码解析-Dubbo可以这么学</title>
+    <link href="https://veryjj.github.io/2018/04/22/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Dubbo%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E5%AD%A6/"/>
+    <id>https://veryjj.github.io/2018/04/22/Dubbo源码解析-Dubbo可以这么学/</id>
+    <published>2018-04-22T08:23:17.000Z</published>
+    <updated>2018-04-22T09:23:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近面试工作颇多，Dubbo作为的微服务主流技术架构，也是分布式系统中面试的高频考题之一。但从面试的过程中得到的反馈，大家对于Dubbo的关注以及掌握程度基本都处于会基本使用的程度，基本没遇到有对Dubbo框架做学习研究的求职者。</p><p>求职者一般只会聊下面两个话题：</p><ol><li>Dubbo 是什么东西？<ul><li>答：RPC框架/微服务框架，在实际工作中用Dubbo做业务功能服务化。</li></ul></li><li>Dubbo的工作原理是什么样的？<ul><li>答：Provider端将服务注册到Zookeeper中，Consumer端从Zookeeper获取Provider，然后就可以调用API了。</li></ul></li></ol><a id="more"></a><p>一般情况下关于Dubbo的基本都聊到此结束了，虽然说没回答错，但也忒简洁了吧，连Dubbo架构图中（下图）的内容都没说完整，而这并不是面试官想得到的讯息。</p><p><img src="/2018/04/22/Dubbo源码解析-Dubbo可以这么学/img-1.png" alt="image"></p><hr><p>Dubbo作为主流的微服务技术框架，必然有其优秀的一面，也是学习RPC框架思想很好的素材</p><p>Dubbo 应该掌握哪些内容？（个人思路）</p><ol><li>阅读Dubbo的用户手册以及开发手册。<a href="http://dubbo.apache.org" target="_blank" rel="noopener">Dubbo.io</a><ul><li>知晓Dubbo支持的功能</li><li>知晓Dubbo的各种扩展点</li><li>知晓Dubbo的设计思想（这里不得不说Dubbo.io的文档说明写的非常详细、到位，甚至一度让我觉得没有写Blog的必要）</li></ul></li><li>Dubbo 核心流程源码实现<ol><li>Dubbo Bean的集成</li><li>Provider 注册、暴露服务</li><li>Consumer 注册、订阅服务</li><li>Consumer 调用实现</li><li>Provider 处理请求</li><li>Dubbo ExtensionLoader机制</li><li>Dubbo Filter机制</li></ol></li><li>思考些高级的<ol><li>Dubbo各可配机制主流选择的优缺点<ul><li>register</li><li>remoting</li><li>rpc</li></ul></li><li>Dubbo Cluster</li><li>Dubbo 怎么做服务治理<ul><li>策略路由</li><li>降级</li><li>熔断</li></ul></li><li>Dubbo 性能基线&amp;性能调优</li><li>框架扩展<ul><li>服务监控</li><li>流量分析</li></ul></li></ol></li></ol><p>那么，逐步的去落实吧！如果开始、请务必坚持！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近面试工作颇多，Dubbo作为的微服务主流技术架构，也是分布式系统中面试的高频考题之一。但从面试的过程中得到的反馈，大家对于Dubbo的关注以及掌握程度基本都处于会基本使用的程度，基本没遇到有对Dubbo框架做学习研究的求职者。&lt;/p&gt;
+&lt;p&gt;求职者一般只会聊下面两个话题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Dubbo 是什么东西？&lt;ul&gt;
+&lt;li&gt;答：RPC框架/微服务框架，在实际工作中用Dubbo做业务功能服务化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Dubbo的工作原理是什么样的？&lt;ul&gt;
+&lt;li&gt;答：Provider端将服务注册到Zookeeper中，Consumer端从Zookeeper获取Provider，然后就可以调用API了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="Dubbo" scheme="https://veryjj.github.io/tags/Dubbo/"/>
+    
+  </entry>
   
   <entry>
     <title>Netty 核心对象梳理-1</title>
