@@ -97,7 +97,7 @@
 <meta property="og:description" content="最近面试工作颇多，Dubbo作为的微服务主流技术架构，也是分布式系统中面试的高频考题之一。但从面试的过程中得到的反馈，大家对于Dubbo的关注以及掌握程度基本都处于会基本使用的程度，基本没遇到有对Dubbo框架做学习研究的求职者。 求职者一般只会聊下面两个话题：  Dubbo 是什么东西？ 答：RPC框架/微服务框架，在实际工作中用Dubbo做业务功能服务化。   Dubbo的工作原理是什么样的？">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://veryjj.github.io/2018/04/22/Dubbo源码解析-Dubbo可以这么学/img-1.png">
-<meta property="og:updated_time" content="2018-04-22T09:23:15.000Z">
+<meta property="og:updated_time" content="2018-04-22T11:36:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dubbo源码解析-Dubbo可以这么学">
 <meta name="twitter:description" content="最近面试工作颇多，Dubbo作为的微服务主流技术架构，也是分布式系统中面试的高频考题之一。但从面试的过程中得到的反馈，大家对于Dubbo的关注以及掌握程度基本都处于会基本使用的程度，基本没遇到有对Dubbo框架做学习研究的求职者。 求职者一般只会聊下面两个话题：  Dubbo 是什么东西？ 答：RPC框架/微服务框架，在实际工作中用Dubbo做业务功能服务化。   Dubbo的工作原理是什么样的？">
@@ -433,7 +433,7 @@
 <li>Consumer 注册、订阅服务</li>
 <li>Consumer 调用实现</li>
 <li>Provider 处理请求</li>
-<li>Dubbo ExtensionLoader机制</li>
+<li>Dubbo SPI机制</li>
 <li>Dubbo Filter机制</li>
 </ol>
 </li>
@@ -535,6 +535,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/04/22/Dubbo源码解析-Spring-Bean注册/" rel="prev" title="Dubbo源码解析-Spring Bean注册">
+                Dubbo源码解析-Spring Bean注册 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -631,7 +635,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -694,7 +698,7 @@ var jiathis_config={
             <div class="widget-wrap">
             <div id="myCanvasContainer" class="widget tagcloud">
                 <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Netty/">Netty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式事务/">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析图/">分析图</a><span class="tag-list-count">1</span></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Netty/">Netty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式事务/">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析图/">分析图</a><span class="tag-list-count">1</span></li></ul>
                 </canvas>
             </div>
             </div>
@@ -713,7 +717,11 @@ var jiathis_config={
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://hexo.io" title="Hexo" target="_blank">Hexo</a>
+                    <a href="https://hexo.io" title="Hexo.io" target="_blank">Hexo.io</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/apache/incubator-dubbo" title="Dubbo.io" target="_blank">Dubbo.io</a>
                   </li>
                 
               </ul>

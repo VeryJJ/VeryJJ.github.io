@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>https://veryjj.github.io/2018/04/22/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Spring-Bean%E6%B3%A8%E5%86%8C/</loc>
+    <lastmod>2018-04-22T12:54:55.000Z</lastmod>
+    <data>
+        <display>
+        <title>Dubbo源码解析-Spring Bean注册</title>
+        <pubTime>2018-04-22T11:34:18.000Z</pubTime>
+        
+        <tag>Dubbo</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://veryjj.github.io/2018/04/22/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Dubbo%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E5%AD%A6/</loc>
-    <lastmod>2018-04-22T09:23:15.000Z</lastmod>
+    <lastmod>2018-04-22T11:36:04.000Z</lastmod>
     <data>
         <display>
         <title>Dubbo源码解析-Dubbo可以这么学</title>
