@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[MySQL子查询很慢的问题分析]]></title>
+    <url>%2F2018%2F05%2F04%2FMySQL%E5%AD%90%E6%9F%A5%E8%AF%A2%E5%BE%88%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%2F</url>
+    <content type="text"><![CDATA[慢查询案例1DELETE FROM settlement_invoice_attachment g1 WHERE demand_id in (SELECT id FROM settlement_invoice_demand g2 WHERE statement_id = 1802065000000074956) 乍眼一看，上述SQL如此简单，且demand_id和statement_id字段都是建了索引，即使是Review也会认为是OK没问题的。 然而，实际情况却是个慢查询，情况如下： explain明细 settlement_invoice_attachment是全表查 注：rows 2689 是因为用的测试环境，真线环境数据是几十万级别 子查询 原理分析(上述SQL子查询为什么这么慢)经验之谈 当看到SQL执行计划中select_type字段出现“DEPENDENT SUBQUERY”的时候，要打起精神了！着重分析下潜在风险！ 基础知识：Dependent SubQuery意味着什么？ 官方含义为： SUBQUERY: 子查询中的第一个SELECT； DEPENDENT SUBQUERY: 子查询中的第一个SELECT， 取决于外面的查询。 换句话说，就是子查询的g2查询执行方式依赖于外层g1的查询结果什么意思呢？它以为着两步走： 第一步：【先执行外部SQL查询】MySQL根据”DELETE FROM settlement_invoice_attachment g1 WHERE” 得到一个大结果集t1，其数据量就是全表所有行了，假设是85万行。 第二步：【后执行内部SQL子查询】第一步的大结果集t1中的每一条记录，都将与子查询SQL组成新的查询语句：SELECT id FROM settlement_invoice_demand g2 WHERE statement_id = 1802065000000074956 AND id = %t1.demand_id%。等于说，子查询要执行85万次……即使这两部查询都用到了索引，也是巨慢的。 优化策略 改写SQL为JOIN的方式 12DELETE ah FROM settlement_invoice_attachment ah INNER JOIN settlement_invoice_demand de ON ah.demand_id = de.id WHERE de.statement_id = 1802065000000074956; 拆成独立SQL多次执行 平时怎么识别？ 看子查询出现的位置 若子查询出现在WHERE从句中，而且是出现在IN（）中，则需要引起注意，用Explain瞧瞧（并不是子查询放IN（）里就一定是全表扫，本案例用，将DELETE改成SELECT就不是DEPENDENT SUBQUERY） 数据库原理 MySQL处理子查询时，会(优化)改写子查询，但优化的不是很友好，一直受业界批评比较多 有时候优化的挺糟糕的，特别是WHERE从句中的IN（）子查询 MySQL 子查询的弱点 mysql 在处理子查询时，会改写子查询。通常情况下，我们希望由内到外，先完成子查询的结果，然后再用子查询来驱动外查询的表，完成查询。 例如：select * from test where tid in(select fk_tid from sub_test where gid=10)通常我们会感性地认为该 sql 的执行顺序是： 1、sub_test 表中根据 gid 取得 fk_tid(2,3,4,5,6)记录。2、然后再到 test 中，带入 tid=2,3,4,5,6，取得查询数据。 但是实际mysql的处理方式为：select from test where exists (select from sub_test where gid=10 and sub_test.fk_tid=test.tid)mysql 将会扫描 test 中所有数据，每条数据都将会传到子查询中与 sub_test 关联，子查询不会先被执行，所以如果 test 表很大的话，那么性能上将会出现问题。]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Dubbo源码解析-Provider暴露服务]]></title>
+    <url>%2F2018%2F05%2F02%2FDubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Provider%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[Dubbo Provider暴露服务的流程中，需要掌握几个核心抽象对象 未完待续]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Dubbo</tag>
+        <tag>RPC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？]]></title>
     <url>%2F2018%2F04%2F23%2F%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%9A%E5%8A%A1%E5%A4%84%E7%90%86%E4%B8%8D%E6%88%90%E5%8A%9F%EF%BC%8C%E5%BA%94%E8%AF%A5%E8%BF%94%E5%9B%9EHTTP-200-%E8%BF%98%E6%98%AF-HTTP-4XXX%E7%B3%BB%E5%88%97%EF%BC%9F%2F</url>
     <content type="text"><![CDATA[场景其实，纠结只出现在例如保存表单的场景，如果服务端因各种业务上的原因（校验不通过，状态不满足等）导致保存未成功，并要返回对应的提示信息，此时服务端回应此HTTP 请求时，是用 “200 + json” 还是用“400 + 错误信息”？ 在公司内不同项目间，两种风格都有，且小伙伴们各执己见。 我这么看首先，我先表达我赞同“200 + json”的方式。 更具体些，服务端所有的Controller Method对返回值做统一的Response包装 1234567891011121314样例1：&#123; "code": 200, "data": &#123;...&#125;, "message":"操作成功"&#125;样例2：&#123; "success": false "data": &#123;...&#125;, "code": 100409, "message":"数据已存在"&#125; 我的观点1. 协议分层对于RPC请求，存在两个层面的操作结果 [1] HTTP请求本身的结果 ———— 业务无关性，与网络、框架层面相关[2] 业务处理的结果 ———— 强业务逻辑相关性，与网络、框架层面无关 为什么我们会有本贴讨论的话题与分歧，或者说为什么大部分人觉得http code不够试用，是因为实际开发应用场景中，尝试着只用http code 去表达上述两个层面的结果。 分层表示的优点： RPC请求， 是可以基于不同的底层协议的， 比如我们用的HTTP协议，很容易替换成ZeroMQ, RabbitMQ, UDP， 基于TCP的自定义协议…… 只要能实现一问一答模型的协议，都是可以用的。这个时候， HTTP协议只是一种底层协议， 底层协议的错误号，并不应该被上层协议使用。 2. HTTP Code 表达能力局限性虽然HTTP协议非常友好的定义了诸多的HTTP Code码，但在实际开发应用中，对于繁多的应用场景，HTTP Code的表达能力显得力不从心，部分场景仍旧不能避免的辅以Response Body信息。加之这些HTTP Code并不是应用开发中的绝对标准。 3. HTTP Code 语义表达的不统一性[1] 同样是HTTP 4XX系列，不同系统的解释也是不一样的[2] 同样是”参数校验不通过”的业务问题，不同系统使用的HTTP码也是不一样的 4. Http Code数量有限，表达能力有限这个应该很好理解，大家应该也有体会。 5. 系统集成友好性如果我们把HTTP协议当作一种传输层协议看待，200 可以很好表达， 整个底层传输都是没有问题， 包括负载均衡系统， nginx， 反向代理， fast cgi守护程序都是工作正常的。 而返回各种HTTP Status Code经常会让外部使用者非常的困惑，特别是他们对HTTP Status Code有一定了解，却对你的系统不甚了解的情况下。 所以，除了考虑ajax请求的处理，还要考虑整个调用的中间链路以及框架集成方面的因素 返回200能避免CDN等中间商替换或缓存 国内的通信运营商画蛇添足根据HTTP状态码给替换成导航页或广告推广页面 对于系统审计程序不友好，例如 HTTP Response Code = 4XX的请求算请求成功？请求失败？请求异常？————无法区分！ 6. 扩展性 返回200OK，扩展性更强，修改的时候只需要修改字段而不需要特别处理Status Code 易于与真正的400错误区分，方便审计和分析。而实际上，当服务器能够正常返回，证明服务器已经正确的理解并得出相应的结果（并且这个结果也是预定义的，并非未知），这显然与400的定义不符。 返回200更优。保不准哪天某种状态是HTTP协议不支持的，保不准哪个需要新增的字段是HTTP协议没有的]]></content>

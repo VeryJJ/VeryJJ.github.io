@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://veryjj.github.io/"/>
-  <updated>2018-04-23T06:29:20.000Z</updated>
+  <updated>2018-05-04T07:33:35.000Z</updated>
   <id>https://veryjj.github.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL子查询很慢的问题分析</title>
+    <link href="https://veryjj.github.io/2018/05/04/MySQL%E5%AD%90%E6%9F%A5%E8%AF%A2%E5%BE%88%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90/"/>
+    <id>https://veryjj.github.io/2018/05/04/MySQL子查询很慢的问题分析/</id>
+    <published>2018-05-04T07:29:46.000Z</published>
+    <updated>2018-05-04T07:33:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<hr><h2 id="慢查询案例"><a href="#慢查询案例" class="headerlink" title="慢查询案例"></a>慢查询案例</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> settlement_invoice_attachment g1 <span class="keyword">WHERE</span> demand_id <span class="keyword">in</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> settlement_invoice_demand g2 <span class="keyword">WHERE</span> statement_id = <span class="number">1802065000000074956</span>)</span><br></pre></td></tr></table></figure><p>乍眼一看，上述SQL如此简单，且demand_id和statement_id字段都是建了索引，即使是Review也会认为是OK没问题的。</p><p>然而，实际情况却是个慢查询，情况如下：</p><p><strong>explain明细</strong></p><p><img src="/2018/05/04/MySQL子查询很慢的问题分析/img-1.png" alt="image"></p><a id="more"></a><p>settlement_invoice_attachment是全表查</p><p>注：rows 2689 是因为用的测试环境，真线环境数据是几十万级别</p><hr><h4 id="子查询-原理分析-上述SQL子查询为什么这么慢"><a href="#子查询-原理分析-上述SQL子查询为什么这么慢" class="headerlink" title="子查询 原理分析(上述SQL子查询为什么这么慢)"></a>子查询 原理分析(上述SQL子查询为什么这么慢)</h4><h5 id="经验之谈"><a href="#经验之谈" class="headerlink" title="经验之谈"></a><code>经验之谈</code></h5><ul><li>当看到SQL执行计划中select_type字段出现“DEPENDENT SUBQUERY”的时候，要打起精神了！着重分析下潜在风险！</li></ul><h5 id="基础知识：Dependent-SubQuery意味着什么？"><a href="#基础知识：Dependent-SubQuery意味着什么？" class="headerlink" title="基础知识：Dependent SubQuery意味着什么？"></a>基础知识：Dependent SubQuery意味着什么？</h5><ul><li>官方含义为：<ol><li>SUBQUERY: 子查询中的第一个SELECT；</li><li>DEPENDENT SUBQUERY: 子查询中的第一个SELECT， 取决于外面的查询。</li></ol></li></ul><p>换句话说，就是<code>子查询的g2查询执行方式依赖于外层g1的查询结果</code><br>什么意思呢？它以为着两步走：</p><ul><li>第一步：【先执行外部SQL查询】MySQL根据”DELETE FROM settlement_invoice_attachment g1 WHERE” 得到一个大结果集t1，其数据量就是全表所有行了，假设是85万行。</li><li>第二步：【后执行内部SQL子查询】第一步的大结果集t1中的每一条记录，都将与子查询SQL组成新的查询语句：SELECT id FROM settlement_invoice_demand g2 WHERE statement_id = 1802065000000074956 AND id = %t1.demand_id%。等于说，子查询要执行85万次……即使这两部查询都用到了索引，也是巨慢的。</li></ul><h5 id="优化策略"><a href="#优化策略" class="headerlink" title="优化策略"></a>优化策略</h5><ul><li>改写SQL为JOIN的方式</li></ul><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> ah <span class="keyword">FROM</span> settlement_invoice_attachment ah <span class="keyword">INNER</span> <span class="keyword">JOIN</span> settlement_invoice_demand de </span><br><span class="line"><span class="keyword">ON</span> ah.demand_id = de.id <span class="keyword">WHERE</span> de.statement_id = <span class="number">1802065000000074956</span>;</span><br></pre></td></tr></table></figure><ul><li>拆成独立SQL多次执行</li></ul><hr><h4 id="平时怎么识别？"><a href="#平时怎么识别？" class="headerlink" title="平时怎么识别？"></a>平时怎么识别？</h4><ul><li>看子查询出现的位置<ul><li>若子查询出现在WHERE从句中，而且是出现在IN（）中，则需要引起注意，用Explain瞧瞧（并不是子查询放IN（）里就一定是全表扫，本案例用，将DELETE改成SELECT就不是DEPENDENT SUBQUERY）</li></ul></li></ul><h4 id="数据库原理"><a href="#数据库原理" class="headerlink" title="数据库原理"></a>数据库原理</h4><ol><li><p>MySQL处理子查询时，会(优化)改写子查询，但优化的不是很友好，一直受业界批评比较多</p><ul><li>有时候优化的挺糟糕的，特别是WHERE从句中的IN（）子查询</li></ul></li><li><p>MySQL 子查询的弱点</p><ul><li>mysql 在处理子查询时，会改写子查询。通常情况下，我们希望由内到外，先完成子查询的结果，然后再用子查询来驱动外查询的表，完成查询。</li></ul></li></ol><p>例如：select * from test where tid in(select fk_tid from sub_test where gid=10)<br>通常我们会感性地认为该 sql 的执行顺序是：</p><p>1、sub_test 表中根据 gid 取得 fk_tid(2,3,4,5,6)记录。<br>2、然后再到 test 中，带入 tid=2,3,4,5,6，取得查询数据。</p><p>但是实际mysql的处理方式为：<br>select <em> from test where exists (select </em> from sub_test where gid=10 and sub_test.fk_tid=test.tid)<br>mysql 将会扫描 test 中所有数据，每条数据都将会传到子查询中与 sub_test 关联，子查询不会先被执行，所以如果 test 表很大的话，那么性能上将会出现问题。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;h2 id=&quot;慢查询案例&quot;&gt;&lt;a href=&quot;#慢查询案例&quot; class=&quot;headerlink&quot; title=&quot;慢查询案例&quot;&gt;&lt;/a&gt;慢查询案例&lt;/h2&gt;&lt;figure class=&quot;highlight sql&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;DELETE&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; settlement_invoice_attachment g1 &lt;span class=&quot;keyword&quot;&gt;WHERE&lt;/span&gt; demand_id &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; settlement_invoice_demand g2 &lt;span class=&quot;keyword&quot;&gt;WHERE&lt;/span&gt; statement_id = &lt;span class=&quot;number&quot;&gt;1802065000000074956&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;乍眼一看，上述SQL如此简单，且demand_id和statement_id字段都是建了索引，即使是Review也会认为是OK没问题的。&lt;/p&gt;
+&lt;p&gt;然而，实际情况却是个慢查询，情况如下：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;explain明细&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/2018/05/04/MySQL子查询很慢的问题分析/img-1.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="SQL" scheme="https://veryjj.github.io/tags/SQL/"/>
+    
+      <category term="数据库" scheme="https://veryjj.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dubbo源码解析-Provider暴露服务</title>
+    <link href="https://veryjj.github.io/2018/05/02/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Provider%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1/"/>
+    <id>https://veryjj.github.io/2018/05/02/Dubbo源码解析-Provider暴露服务/</id>
+    <published>2018-05-02T13:20:44.000Z</published>
+    <updated>2018-05-04T07:34:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Dubbo Provider暴露服务的流程中，需要掌握几个核心抽象对象</p><ul><li>未完待续</li></ul><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Dubbo Provider暴露服务的流程中，需要掌握几个核心抽象对象&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;未完待续&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="Dubbo" scheme="https://veryjj.github.io/tags/Dubbo/"/>
+    
+      <category term="RPC" scheme="https://veryjj.github.io/tags/RPC/"/>
+    
+  </entry>
   
   <entry>
     <title>服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？</title>

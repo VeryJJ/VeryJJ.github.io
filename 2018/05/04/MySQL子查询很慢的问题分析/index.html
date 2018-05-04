@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="SQL,数据库," />
 
 
 
@@ -88,32 +88,20 @@
 
 
 
-<meta name="description" content="前篇《个人博客搭建-结缘Hexo》   从时间投入上来说，搭建Hexo可谓是分分钟的事情，装修可花了我近一天的时间。 Hexo 是一个开放、扩展性强的框架，样式风格、功能都可以通过主题包、插件来实现。完全可以根据个人口味来装修你的博客。">
-<meta name="keywords" content="Hexo">
+<meta name="description" content="慢查询案例1DELETE FROM settlement_invoice_attachment g1 WHERE demand_id in (SELECT id FROM settlement_invoice_demand g2 WHERE statement_id = 1802065000000074956) 乍眼一看，上述SQL如此简单，且demand_id和statement_id字段都是">
+<meta name="keywords" content="SQL,数据库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo装修记录">
-<meta property="og:url" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/index.html">
+<meta property="og:title" content="MySQL子查询很慢的问题分析">
+<meta property="og:url" content="https://veryjj.github.io/2018/05/04/MySQL子查询很慢的问题分析/index.html">
 <meta property="og:site_name" content="黄老师">
-<meta property="og:description" content="前篇《个人博客搭建-结缘Hexo》   从时间投入上来说，搭建Hexo可谓是分分钟的事情，装修可花了我近一天的时间。 Hexo 是一个开放、扩展性强的框架，样式风格、功能都可以通过主题包、插件来实现。完全可以根据个人口味来装修你的博客。">
+<meta property="og:description" content="慢查询案例1DELETE FROM settlement_invoice_attachment g1 WHERE demand_id in (SELECT id FROM settlement_invoice_demand g2 WHERE statement_id = 1802065000000074956) 乍眼一看，上述SQL如此简单，且demand_id和statement_id字段都是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/themes-dir.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/change-theme.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/bg-show.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/bg-config.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/search-show.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/search-config.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/leancloud-config-1.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/leancloud-config-2.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/leancloud-config-3.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/leancloud-config-4.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/pv-config.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/show-tags.png">
-<meta property="og:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/show-categories.png">
-<meta property="og:updated_time" content="2018-03-17T14:59:13.000Z">
+<meta property="og:image" content="https://veryjj.github.io/2018/05/04/MySQL子查询很慢的问题分析/img-1.png">
+<meta property="og:updated_time" content="2018-05-04T07:33:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo装修记录">
-<meta name="twitter:description" content="前篇《个人博客搭建-结缘Hexo》   从时间投入上来说，搭建Hexo可谓是分分钟的事情，装修可花了我近一天的时间。 Hexo 是一个开放、扩展性强的框架，样式风格、功能都可以通过主题包、插件来实现。完全可以根据个人口味来装修你的博客。">
-<meta name="twitter:image" content="https://veryjj.github.io/2018/03/17/Hexo装修记录/themes-dir.png">
+<meta name="twitter:title" content="MySQL子查询很慢的问题分析">
+<meta name="twitter:description" content="慢查询案例1DELETE FROM settlement_invoice_attachment g1 WHERE demand_id in (SELECT id FROM settlement_invoice_demand g2 WHERE statement_id = 1802065000000074956) 乍眼一看，上述SQL如此简单，且demand_id和statement_id字段都是">
+<meta name="twitter:image" content="https://veryjj.github.io/2018/05/04/MySQL子查询很慢的问题分析/img-1.png">
 
 
 
@@ -143,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://veryjj.github.io/2018/03/17/Hexo装修记录/"/>
+  <link rel="canonical" href="https://veryjj.github.io/2018/05/04/MySQL子查询很慢的问题分析/"/>
 
 
 
 
 
-  <title>Hexo装修记录 | 黄老师</title>
+  <title>MySQL子查询很慢的问题分析 | 黄老师</title>
   
 
 
@@ -309,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://veryjj.github.io/2018/03/17/Hexo装修记录/">
+    <link itemprop="mainEntityOfPage" href="https://veryjj.github.io/2018/05/04/MySQL子查询很慢的问题分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄老师">
@@ -326,7 +314,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Hexo装修记录</h2>
+          <h2 class="post-title" itemprop="name headline">MySQL子查询很慢的问题分析</h2>
         
 
         <div class="post-meta">
@@ -338,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-17T21:01:05+08:00">
-                2018-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-04T15:29:46+08:00">
+                2018-05-04
               </time>
             
 
@@ -361,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
                   </a>
                 </span>
 
@@ -378,7 +366,7 @@
 
           
           
-             <span id="/2018/03/17/Hexo装修记录/" class="leancloud_visitors" data-flag-title="Hexo装修记录">
+             <span id="/2018/05/04/MySQL子查询很慢的问题分析/" class="leancloud_visitors" data-flag-title="MySQL子查询很慢的问题分析">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,78 +402,60 @@
       
 
       
-        <p>前篇《<a href="https://veryjj.github.io/2018/03/17/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E7%BB%93%E7%BC%98Hexo/">个人博客搭建-结缘Hexo</a>》  </p>
-<p>从时间投入上来说，搭建Hexo可谓是分分钟的事情，装修可花了我近一天的时间。</p>
-<p>Hexo 是一个开放、扩展性强的框架，样式风格、功能都可以通过主题包、插件来实现。完全可以根据个人口味来装修你的博客。</p>
+        <hr>
+<h2 id="慢查询案例"><a href="#慢查询案例" class="headerlink" title="慢查询案例"></a>慢查询案例</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> settlement_invoice_attachment g1 <span class="keyword">WHERE</span> demand_id <span class="keyword">in</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> settlement_invoice_demand g2 <span class="keyword">WHERE</span> statement_id = <span class="number">1802065000000074956</span>)</span><br></pre></td></tr></table></figure>
+<p>乍眼一看，上述SQL如此简单，且demand_id和statement_id字段都是建了索引，即使是Review也会认为是OK没问题的。</p>
+<p>然而，实际情况却是个慢查询，情况如下：</p>
+<p><strong>explain明细</strong></p>
+<p><img src="/2018/05/04/MySQL子查询很慢的问题分析/img-1.png" alt="image"></p>
 <a id="more"></a>
+<p>settlement_invoice_attachment是全表查</p>
+<p>注：rows 2689 是因为用的测试环境，真线环境数据是几十万级别</p>
 <hr>
-<h1 id="选主题"><a href="#选主题" class="headerlink" title="选主题"></a>选主题</h1><p>关于Hexo的主题，你可以问度娘”Hexo Themes”网友好评度高的主题，也可以去官网自行挑选<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-<ul>
-<li>需要提前说明的是：不是选上对应主题，所有功能就有了，这也是我为什么会单独写这篇备忘的原因。</li>
+<h4 id="子查询-原理分析-上述SQL子查询为什么这么慢"><a href="#子查询-原理分析-上述SQL子查询为什么这么慢" class="headerlink" title="子查询 原理分析(上述SQL子查询为什么这么慢)"></a>子查询 原理分析(上述SQL子查询为什么这么慢)</h4><h5 id="经验之谈"><a href="#经验之谈" class="headerlink" title="经验之谈"></a><code>经验之谈</code></h5><ul>
+<li>当看到SQL执行计划中select_type字段出现“DEPENDENT SUBQUERY”的时候，要打起精神了！着重分析下潜在风险！</li>
 </ul>
-<p>经过各种试用和对比，我最终选择了：NexT这个主题 <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">Go Github</a>，理由如下：</p>
-<ol>
-<li>（Most Important）界面符合我口味。NexT 中的Pisces主题，样例：<a href="http://notes.iissnan.com/" target="_blank" rel="noopener">IIssNan’s Notes</a></li>
-<li>NexT主题集成的插件多，极大的方便了初级的小白用户，详见：NexT主题的_config.xml配置项<ul>
-<li>博客评论</li>
-<li>Baidu Analytics / Google Analytics</li>
-<li>文章阅读数量</li>
-<li>baidu push</li>
-<li>algolia_search / local_search</li>
-<li>背景画布特效</li>
-<li>highlight_theme</li>
-<li>等等</li>
+<h5 id="基础知识：Dependent-SubQuery意味着什么？"><a href="#基础知识：Dependent-SubQuery意味着什么？" class="headerlink" title="基础知识：Dependent SubQuery意味着什么？"></a>基础知识：Dependent SubQuery意味着什么？</h5><ul>
+<li>官方含义为：<ol>
+<li>SUBQUERY: 子查询中的第一个SELECT；</li>
+<li>DEPENDENT SUBQUERY: 子查询中的第一个SELECT， 取决于外面的查询。</li>
+</ol>
+</li>
+</ul>
+<p>换句话说，就是<code>子查询的g2查询执行方式依赖于外层g1的查询结果</code><br>什么意思呢？它以为着两步走：</p>
+<ul>
+<li>第一步：【先执行外部SQL查询】MySQL根据”DELETE FROM settlement_invoice_attachment g1 WHERE” 得到一个大结果集t1，其数据量就是全表所有行了，假设是85万行。</li>
+<li>第二步：【后执行内部SQL子查询】第一步的大结果集t1中的每一条记录，都将与子查询SQL组成新的查询语句：SELECT id FROM settlement_invoice_demand g2 WHERE statement_id = 1802065000000074956 AND id = %t1.demand_id%。等于说，子查询要执行85万次……即使这两部查询都用到了索引，也是巨慢的。</li>
+</ul>
+<h5 id="优化策略"><a href="#优化策略" class="headerlink" title="优化策略"></a>优化策略</h5><ul>
+<li>改写SQL为JOIN的方式</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> ah <span class="keyword">FROM</span> settlement_invoice_attachment ah <span class="keyword">INNER</span> <span class="keyword">JOIN</span> settlement_invoice_demand de </span><br><span class="line"><span class="keyword">ON</span> ah.demand_id = de.id <span class="keyword">WHERE</span> de.statement_id = <span class="number">1802065000000074956</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拆成独立SQL多次执行</li>
+</ul>
+<hr>
+<h4 id="平时怎么识别？"><a href="#平时怎么识别？" class="headerlink" title="平时怎么识别？"></a>平时怎么识别？</h4><ul>
+<li>看子查询出现的位置<ul>
+<li>若子查询出现在WHERE从句中，而且是出现在IN（）中，则需要引起注意，用Explain瞧瞧（并不是子查询放IN（）里就一定是全表扫，本案例用，将DELETE改成SELECT就不是DEPENDENT SUBQUERY）</li>
 </ul>
 </li>
-<li>支持手机端</li>
+</ul>
+<h4 id="数据库原理"><a href="#数据库原理" class="headerlink" title="数据库原理"></a>数据库原理</h4><ol>
+<li><p>MySQL处理子查询时，会(优化)改写子查询，但优化的不是很友好，一直受业界批评比较多</p>
+<ul>
+<li>有时候优化的挺糟糕的，特别是WHERE从句中的IN（）子查询</li>
+</ul>
+</li>
+<li><p>MySQL 子查询的弱点</p>
+<ul>
+<li>mysql 在处理子查询时，会改写子查询。通常情况下，我们希望由内到外，先完成子查询的结果，然后再用子查询来驱动外查询的表，完成查询。</li>
+</ul>
+</li>
 </ol>
-<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>Hexo theme 统一放在Hexo根目录的themes目录下，每个主题一个子目录。<br><img src="/2018/03/17/Hexo装修记录/themes-dir.png" alt="image"></p>
-<p>如果主题是Github上的，推荐使用如下命令下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/iissnan/hexo-theme-next.git themes/next</span><br></pre></td></tr></table></figure>
-<p>然后修改hexo根目录下的_config.xml，切换主题<br><img src="/2018/03/17/Hexo装修记录/change-theme.png" alt="image"></p>
-<p>OK, hexo g -&gt; hexo s 看下效果吧</p>
-<h1 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h1><p>找到 hexo/themes/next/_config.xml，一项项阅读熟悉吧，注释写的很详细。</p>
-<h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><p>基础配置项：</p>
-<ol>
-<li>菜单配置：主页、关于、标签、分类、归档等</li>
-<li>头像</li>
-<li>打赏</li>
-<li>社交主页</li>
-<li>侧边栏</li>
-</ol>
-<p>主题的_config.xml会引用hexo的_config.xml中基础配置，所以请同时配置hexo的_config.xml，例如：博客抬头、语种、相关数据目录等</p>
-<h2 id="背景特效"><a href="#背景特效" class="headerlink" title="背景特效"></a>背景特效</h2><p>效果图示<br><img src="/2018/03/17/Hexo装修记录/bg-show.png" alt="image"></p>
-<p>配置next主题的_config.xml<br><img src="/2018/03/17/Hexo装修记录/bg-config.png" alt="image"></p>
-<h2 id="支持搜索"><a href="#支持搜索" class="headerlink" title="支持搜索"></a>支持搜索</h2><p><img src="/2018/03/17/Hexo装修记录/search-show.png" alt="image"><br><img src="/2018/03/17/Hexo装修记录/search-config.png" alt="image"></p>
-<h2 id="文章阅读计数"><a href="#文章阅读计数" class="headerlink" title="文章阅读计数"></a>文章阅读计数</h2><p>NexT提供两种插件方式：1、leancloud_visitors（国内的）   和  2、firestore(谷歌的)<br>我选用的是leancloud_visitors，配置相对简单一些</p>
-<ul>
-<li>配置LeanCloud</li>
-</ul>
-<p>注册：<a href="https://leancloud.cn" target="_blank" rel="noopener">https://leancloud.cn</a><br>打开LeanCloud官网，进入注册页面注册。完成邮箱激活后，点击头像，进入控制台页面创建新应用，如下：<br><img src="/2018/03/17/Hexo装修记录/leancloud-config-1.png" alt="image"></p>
-<p>创建名称为Counter的Class<br><img src="/2018/03/17/Hexo装修记录/leancloud-config-2.png" alt="image"><br><img src="/2018/03/17/Hexo装修记录/leancloud-config-3.png" alt="image"></p>
-<p>修改NexT的_config.xml配置文件<br><img src="/2018/03/17/Hexo装修记录/leancloud-config-4.png" alt="image">  </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Show number of visitors to each article.</span><br><span class="line"># You can visit https://leancloud.cn get AppID and AppKey.</span><br><span class="line">leancloud_visitors:</span><br><span class="line">  enable: true</span><br><span class="line">  app_id: "你的App Id"</span><br><span class="line">  app_key: "你的App Key"</span><br></pre></td></tr></table></figure>
-<h2 id="PV-UV"><a href="#PV-UV" class="headerlink" title="PV/UV"></a>PV/UV</h2><p><img src="/2018/03/17/Hexo装修记录/pv-config.png" alt="image">  </p>
-<h2 id="Google-Analytics"><a href="#Google-Analytics" class="headerlink" title="Google Analytics"></a>Google Analytics</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Google Analytics</span><br><span class="line">google_analytics: '你的Google Analytics Code'</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><h2 id="标签和分类页面不显示问题"><a href="#标签和分类页面不显示问题" class="headerlink" title="标签和分类页面不显示问题"></a>标签和分类页面不显示问题</h2><p>当时切换NexT主题后，侧边栏的标签、分类点击时，是无法正常显示标签和分类的，属：Cannot Get /tags/</p>
-<p>若出现此问题，请按下方式解决<br>在hexo 目录下执行</p>
-<ul>
-<li>步骤一：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page 'tags'</span><br></pre></td></tr></table></figure>
-<ul>
-<li>步骤二：</li>
-</ul>
-<p>编辑刚新建的页面，将页面的类型设置为tags，主题会自动为这个页面显示标签云。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: TagCloud</span><br><span class="line">date: 2018-03-17 15:31:21</span><br><span class="line">type: "tags"</span><br><span class="line">comments: false   #注意：如果有启动多说或Disqus评论，需要关闭评论，添加comments字段并设置为false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/03/17/Hexo装修记录/show-tags.png" alt="image"></p>
-<p><strong>“分类”同理~</strong></p>
-<p><img src="/2018/03/17/Hexo装修记录/show-categories.png" alt="image"></p>
-<hr>
-<h1 id="其他推荐"><a href="#其他推荐" class="headerlink" title="其他推荐"></a>其他推荐</h1><ul>
-<li><a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="noopener">hexo的next主题个性化配置教程</a></li>
-</ul>
+<p>例如：select * from test where tid in(select fk_tid from sub_test where gid=10)<br>通常我们会感性地认为该 sql 的执行顺序是：</p>
+<p>1、sub_test 表中根据 gid 取得 fk_tid(2,3,4,5,6)记录。<br>2、然后再到 test 中，带入 tid=2,3,4,5,6，取得查询数据。</p>
+<p>但是实际mysql的处理方式为：<br>select <em> from test where exists (select </em> from sub_test where gid=10 and sub_test.fk_tid=test.tid)<br>mysql 将会扫描 test 中所有数据，每条数据都将会传到子查询中与 sub_test 关联，子查询不会先被执行，所以如果 test 表很大的话，那么性能上将会出现问题。</p>
 
       
     </div>
@@ -537,7 +507,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+            <a href="/tags/SQL/" rel="tag"><i class="fa fa-tag"></i> SQL</a>
+          
+            <a href="/tags/数据库/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
           
         </div>
       
@@ -550,8 +522,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/17/个人博客搭建-结缘Hexo/" rel="next" title="个人博客搭建-结缘Hexo">
-                <i class="fa fa-chevron-left"></i> 个人博客搭建-结缘Hexo
+              <a href="/2018/05/02/Dubbo源码解析-Provider暴露服务/" rel="next" title="Dubbo源码解析-Provider暴露服务">
+                <i class="fa fa-chevron-left"></i> Dubbo源码解析-Provider暴露服务
               </a>
             
           </div>
@@ -559,10 +531,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/17/Hexo写作技巧/" rel="prev" title="Hexo写作技巧">
-                Hexo写作技巧 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -777,7 +745,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#选主题"><span class="nav-number">1.</span> <span class="nav-text">选主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装主题"><span class="nav-number">1.0.1.</span> <span class="nav-text">安装主题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题配置"><span class="nav-number">2.</span> <span class="nav-text">主题配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础配置"><span class="nav-number">2.1.</span> <span class="nav-text">基础配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景特效"><span class="nav-number">2.2.</span> <span class="nav-text">背景特效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持搜索"><span class="nav-number">2.3.</span> <span class="nav-text">支持搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章阅读计数"><span class="nav-number">2.4.</span> <span class="nav-text">文章阅读计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PV-UV"><span class="nav-number">2.5.</span> <span class="nav-text">PV/UV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Google-Analytics"><span class="nav-number">2.6.</span> <span class="nav-text">Google Analytics</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题解决"><span class="nav-number">3.</span> <span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标签和分类页面不显示问题"><span class="nav-number">3.1.</span> <span class="nav-text">标签和分类页面不显示问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他推荐"><span class="nav-number">4.</span> <span class="nav-text">其他推荐</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#慢查询案例"><span class="nav-number">1.</span> <span class="nav-text">慢查询案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#子查询-原理分析-上述SQL子查询为什么这么慢"><span class="nav-number">1.0.1.</span> <span class="nav-text">子查询 原理分析(上述SQL子查询为什么这么慢)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#经验之谈"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">经验之谈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基础知识：Dependent-SubQuery意味着什么？"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">基础知识：Dependent SubQuery意味着什么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优化策略"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">优化策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#平时怎么识别？"><span class="nav-number">1.0.2.</span> <span class="nav-text">平时怎么识别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库原理"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据库原理</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
