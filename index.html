@@ -560,9 +560,24 @@
 
       
         
-          <p>Dubbo Provider暴露服务的流程中，需要掌握几个核心抽象对象</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Dubbo Provider暴露服务的流程中，需要掌握几个核心抽象对象</p>
 <ul>
-<li>未完待续</li>
+<li>过程中的重要类<ul>
+<li>ServiceConfig：记录了Dubbo Service所有相关的配置信息。<a href="#ServiceConfig">ServiceConfig作用</a></li>
+<li>DubboProtocol：以Dubbo协议的方式暴露服务，并以此为中心维护所有相关的动态服务数据。</li>
+<li>RegisterProtocol: 内部会加载具体的注册中心Register,例如：ZookeeperRegister。完成服务向注册中心注册的动作。</li>
+<li>ServiceConfig#loadRegistries：解析获得注册中心地址列表</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>过程中的重要对象<ul>
+<li>com.alibaba.dubbo.common.URL: 服务发布的地址</li>
+<li>Invoker: 对原Service Interface进行了代理封装，屏蔽了具体Service Interface的差异，方便统一管理和调用。</li>
+<li>Exporter： 一个ServiceBean每向一个注册中心Register注册一次，就会生成已各Exporter。Exporter用于连接暴露服务的Url与本地Invoker的对应关系。</li>
+<li>ExporterMap: 记录着服务地址和Exporter的对应关系</li>
+</ul>
+</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
