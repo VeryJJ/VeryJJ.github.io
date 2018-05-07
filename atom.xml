@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://veryjj.github.io/"/>
-  <updated>2018-05-06T10:12:03.000Z</updated>
+  <updated>2018-05-07T00:57:45.000Z</updated>
   <id>https://veryjj.github.io/</id>
   
   <author>
@@ -21,26 +21,39 @@
     <link href="https://veryjj.github.io/2018/05/06/MySQL%E7%B4%A2%E5%BC%95%E5%90%88%E5%B9%B6/"/>
     <id>https://veryjj.github.io/2018/05/06/MySQL索引合并/</id>
     <published>2018-05-06T09:55:18.000Z</published>
-    <updated>2018-05-06T10:12:03.000Z</updated>
+    <updated>2018-05-07T00:57:45.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="历史背景"><a href="#历史背景" class="headerlink" title="历史背景"></a>历史背景</h2><p>MySQL 5.0版本之前，一个表一次只能选择并使用一个索引。</p><p>MySQL 5.1版本开始，引入了Index Merge Optimization技术，使得MySQL支持一个表一次查询同时使用多个索引。</p><p>官方文档：<a href="https://dev.mysql.com/doc/refman/5.5/en/index-merge-optimization.html" target="_blank" rel="noopener">MySQL Index Merge Optimization</a> </p><p>Index Merge Optimization支持三种合并算法</p><ul><li>The Index Merge Intersection Access Algorithm<ul><li>对应SQL 中的 AND 场景</li></ul></li><li>The Index Merge Union Access Algorithm<ul><li>对应SQL中的 OR 场景（where条件是等值判断）</li></ul></li><li>The Index Merge Sort-Union Access Algorithm<ul><li>对应SQL中的 OR 场景（where条件是范围查询）</li></ul></li></ul><blockquote><p>注：索引合并(Index Merge)的使用取决于optimizer_switch系统变量的index_merge，index_merge_intersection，index_merge_union和index_merge_sort_union标志的值。默认情况下，所有这些标志都打开。 要仅启用特定算法，请将index_merge设置为关闭，并仅启用其他应允许的其他算法。</p></blockquote><p>##关于”Index Merge Intersection Access Algorithm”的疑问</p><blockquote><p>针对 MySQL Index Merge Optimization Intersection Algorithm</p></blockquote><p>AND 场景的 index merge optimization为什么会比使用单个索引来的高效？</p><p>设想：</p><ul><li><p>使用单个索引的场景</p><ol><li>选中选择性高的索引先获得一份数据</li><li>在再mysql服务器端用using where的方式，按第二条件进行过滤，得到最终满足所有条件的数据行。</li></ol></li><li><p>同时使用表内多个索引的场景</p><ol><li>按每个索引，在索引树里拿只满足本索引条件的行数据</li><li>将两份行数据，放一块进行交集运算。</li><li>从索引的次数、磁盘IO、内存交接运算来看，事情没变少、反而变多了。</li></ol></li></ul><hr><h2 id="自我初版解释"><a href="#自我初版解释" class="headerlink" title="自我初版解释"></a>自我初版解释</h2><h4 id="合理的解释"><a href="#合理的解释" class="headerlink" title="合理的解释"></a>合理的解释</h4><p>样例SQL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table_sample where column_1 = A AND column_2 = B;</span><br></pre></td></tr></table></figure></p><ol><li>前提条件，SQL中不能有范围查询，如果存在范围查询，数据库优化器默认使用单索引方式，不用index merge optimization</li><li>SQL的<code>WHERE从句中的所有条件字段都有对应的索引</code>，否则问题就来了，肯定会在内存中有次using_where的。</li><li>单表多Index并行检索时，拿到的是数据行地址，以上述SQL为例，即拿到了两份行数据地址：Index Column_1的行数据地址集，Index Column_2的行数据地址集</li><li>再在内存中完成两份行数据地址集的交集运算（只需要比地址）</li><li>此时，再决定是否回表拿更多的数据。<ul><li>如果字段中有primary key，就不用回表啦！</li></ul></li></ol><ul><li>如上的执行步骤，就会比较合理。有效率上的优势。</li></ul><h4 id="【更进一步】-explain-显示type-为-index-merge时，到底要不要引起关注？"><a href="#【更进一步】-explain-显示type-为-index-merge时，到底要不要引起关注？" class="headerlink" title="【更进一步】 explain 显示type 为 index_merge时，到底要不要引起关注？"></a>【更进一步】 explain 显示type 为 index_merge时，到底要不要引起关注？</h4><p><code>【需要引起注意】</code></p><p>拿着SQL琢磨下，是否还有优化的空间，例如：采用组合索引；强制走单索引（需要对比测试看效果，还要看业务数据场景和增长趋势）；</p><hr><p>注：</p><ol><li>当索引本身信息可以覆盖select的字段时（或是select count(*)）,效率会很高，因为内存索引里已经能提供返回的数据了，不用回表。</li><li>当索引本身信息不能覆盖select的字段时，就要回表查行数据了，性能差别很大。</li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="历史背景"><a href="#历史背景" class="headerlink" title="历史背景"></a>历史背景</h2><p>MySQL 5.0版本之前，一个表一次只能选择并使用一个索引。</p><p>MySQL 5.1版本开始，引入了Index Merge Optimization技术，使得MySQL支持一个表一次查询同时使用多个索引。</p><p>官方文档：<a href="https://dev.mysql.com/doc/refman/5.5/en/index-merge-optimization.html" target="_blank" rel="noopener">MySQL Index Merge Optimization</a> </p><p>Index Merge Optimization支持三种合并算法</p><ul><li>The Index Merge Intersection Access Algorithm<ul><li>对应SQL 中的 AND 场景</li></ul></li><li>The Index Merge Union Access Algorithm<ul><li>对应SQL中的 OR 场景（where条件是等值判断）</li></ul></li><li>The Index Merge Sort-Union Access Algorithm<ul><li>对应SQL中的 OR 场景（where条件是范围查询）</li></ul></li></ul><a id="more"></a><blockquote><p>注：索引合并(Index Merge)的使用取决于optimizer_switch系统变量的index_merge，index_merge_intersection，index_merge_union和index_merge_sort_union标志的值。默认情况下，所有这些标志都打开。 要仅启用特定算法，请将index_merge设置为关闭，并仅启用其他应允许的其他算法。</p></blockquote><p>##关于”Index Merge Intersection Access Algorithm”的疑问</p><blockquote><p>针对 MySQL Index Merge Optimization Intersection Algorithm</p></blockquote><p>AND 场景的 index merge optimization为什么会比使用单个索引来的高效？</p><p>设想：</p><ul><li><p>使用单个索引的场景</p><ol><li>选中选择性高的索引先获得一份数据</li><li>在再mysql服务器端用using where的方式，按第二条件进行过滤，得到最终满足所有条件的数据行。</li></ol></li><li><p>同时使用表内多个索引的场景</p><ol><li>按每个索引，在索引树里拿只满足本索引条件的行数据</li><li>将两份行数据，放一块进行交集运算。</li><li>从索引的次数、磁盘IO、内存交接运算来看，事情没变少、反而变多了。</li></ol></li></ul><hr><h2 id="自我初版解释"><a href="#自我初版解释" class="headerlink" title="自我初版解释"></a>自我初版解释</h2><h4 id="合理的解释"><a href="#合理的解释" class="headerlink" title="合理的解释"></a>合理的解释</h4><p>样例SQL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table_sample where column_1 = A AND column_2 = B;</span><br></pre></td></tr></table></figure></p><ol><li>前提条件，SQL中不能有范围查询，如果存在范围查询，数据库优化器默认使用单索引方式，不用index merge optimization</li><li>SQL的<code>WHERE从句中的所有条件字段都有对应的索引</code>，否则问题就来了，肯定会在内存中有次using_where的。</li><li>单表多Index并行检索时，拿到的是数据行地址，以上述SQL为例，即拿到了两份行数据地址：Index Column_1的行数据地址集，Index Column_2的行数据地址集</li><li>再在内存中完成两份行数据地址集的交集运算（只需要比地址）</li><li>此时，再决定是否回表拿更多的数据。<ul><li>如果字段中有primary key，就不用回表啦！</li></ul></li></ol><ul><li>如上的执行步骤，就会比较合理。有效率上的优势。</li></ul><h4 id="【更进一步】-explain-显示type-为-index-merge时，到底要不要引起关注？"><a href="#【更进一步】-explain-显示type-为-index-merge时，到底要不要引起关注？" class="headerlink" title="【更进一步】 explain 显示type 为 index_merge时，到底要不要引起关注？"></a>【更进一步】 explain 显示type 为 index_merge时，到底要不要引起关注？</h4><p><code>【需要引起注意】</code></p><p>拿着SQL琢磨下，是否还有优化的空间，例如：采用组合索引；强制走单索引（需要对比测试看效果，还要看业务数据场景和增长趋势）；</p><hr><p>注：</p><ol><li>当索引本身信息可以覆盖select的字段时（或是select count(*)）,效率会很高，因为内存索引里已经能提供返回的数据了，不用回表。</li><li>当索引本身信息不能覆盖select的字段时，就要回表查行数据了，性能差别很大。</li></ol>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h2 id=&quot;历史背景&quot;&gt;&lt;a href=&quot;#历史背景&quot; class=&quot;headerlink&quot; title=&quot;历史背景&quot;&gt;&lt;/a&gt;历史背景&lt;/h2&gt;&lt;p&gt;MySQL 5.0版本之前，一个表一次只能选择并使用一个索引。&lt;/p&gt;
-&lt;p&gt;MySQL 5.1版本开始，引入了Index 
-      
+      &lt;h2 id=&quot;历史背景&quot;&gt;&lt;a href=&quot;#历史背景&quot; class=&quot;headerlink&quot; title=&quot;历史背景&quot;&gt;&lt;/a&gt;历史背景&lt;/h2&gt;&lt;p&gt;MySQL 5.0版本之前，一个表一次只能选择并使用一个索引。&lt;/p&gt;
+&lt;p&gt;MySQL 5.1版本开始，引入了Index Merge Optimization技术，使得MySQL支持一个表一次查询同时使用多个索引。&lt;/p&gt;
+&lt;p&gt;官方文档：&lt;a href=&quot;https://dev.mysql.com/doc/refman/5.5/en/index-merge-optimization.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MySQL Index Merge Optimization&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;Index Merge Optimization支持三种合并算法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Index Merge Intersection Access Algorithm&lt;ul&gt;
+&lt;li&gt;对应SQL 中的 AND 场景&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The Index Merge Union Access Algorithm&lt;ul&gt;
+&lt;li&gt;对应SQL中的 OR 场景（where条件是等值判断）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The Index Merge Sort-Union Access Algorithm&lt;ul&gt;
+&lt;li&gt;对应SQL中的 OR 场景（where条件是范围查询）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
       <category term="技术" scheme="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="MySQL" scheme="https://veryjj.github.io/tags/MySQL/"/>
-    
       <category term="数据库" scheme="https://veryjj.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="MySQL" scheme="https://veryjj.github.io/tags/MySQL/"/>
     
       <category term="索引" scheme="https://veryjj.github.io/tags/%E7%B4%A2%E5%BC%95/"/>
     
@@ -69,9 +82,9 @@
       <category term="技术" scheme="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="数据库" scheme="https://veryjj.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
       <category term="SQL" scheme="https://veryjj.github.io/tags/SQL/"/>
+    
+      <category term="数据库" scheme="https://veryjj.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   

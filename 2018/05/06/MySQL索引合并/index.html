@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="MySQL,数据库,索引," />
+  <meta name="keywords" content="数据库,MySQL,索引," />
 
 
 
@@ -89,14 +89,14 @@
 
 
 <meta name="description" content="历史背景MySQL 5.0版本之前，一个表一次只能选择并使用一个索引。 MySQL 5.1版本开始，引入了Index Merge Optimization技术，使得MySQL支持一个表一次查询同时使用多个索引。 官方文档：MySQL Index Merge Optimization  Index Merge Optimization支持三种合并算法  The Index Merge Interse">
-<meta name="keywords" content="MySQL,数据库,索引">
+<meta name="keywords" content="数据库,MySQL,索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL索引合并">
 <meta property="og:url" content="https://veryjj.github.io/2018/05/06/MySQL索引合并/index.html">
 <meta property="og:site_name" content="黄老师">
 <meta property="og:description" content="历史背景MySQL 5.0版本之前，一个表一次只能选择并使用一个索引。 MySQL 5.1版本开始，引入了Index Merge Optimization技术，使得MySQL支持一个表一次查询同时使用多个索引。 官方文档：MySQL Index Merge Optimization  Index Merge Optimization支持三种合并算法  The Index Merge Interse">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-06T10:12:03.000Z">
+<meta property="og:updated_time" content="2018-05-07T00:57:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL索引合并">
 <meta name="twitter:description" content="历史背景MySQL 5.0版本之前，一个表一次只能选择并使用一个索引。 MySQL 5.1版本开始，引入了Index Merge Optimization技术，使得MySQL支持一个表一次查询同时使用多个索引。 官方文档：MySQL Index Merge Optimization  Index Merge Optimization支持三种合并算法  The Index Merge Interse">
@@ -418,6 +418,7 @@
 </ul>
 </li>
 </ul>
+<a id="more"></a>
 <blockquote>
 <p>注：索引合并(Index Merge)的使用取决于optimizer_switch系统变量的index_merge，index_merge_intersection，index_merge_union和index_merge_sort_union标志的值。默认情况下，所有这些标志都打开。 要仅启用特定算法，请将index_merge设置为关闭，并仅启用其他应允许的其他算法。</p>
 </blockquote>
@@ -516,9 +517,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
-          
             <a href="/tags/数据库/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
+          
+            <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
           
             <a href="/tags/索引/" rel="tag"><i class="fa fa-tag"></i> 索引</a>
           
