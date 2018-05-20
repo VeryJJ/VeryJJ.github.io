@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="黄老师">
 <meta property="og:description" content="引言在互联网高度普及的今天，作为一名Web开发者，如果你还没听说过“REST”这个技术名词，出门都不好意思跟人打招呼。尽管如此，对于REST这个泊来品的理解，大多数人仍然停留在“盲人摸象”的阶段。 有人认为，在Web Controller层写的API就是REST API。而且，从开发角度对于URI的命名、HTTP  Mehthod的选择没有建立起规范的意识。这样是不优雅的！（没有对错之分） 作为带">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-20T06:42:52.000Z">
+<meta property="og:updated_time" content="2018-05-20T07:01:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RESTful API命名实践">
 <meta name="twitter:description" content="引言在互联网高度普及的今天，作为一名Web开发者，如果你还没听说过“REST”这个技术名词，出门都不好意思跟人打招呼。尽管如此，对于REST这个泊来品的理解，大多数人仍然停留在“盲人摸象”的阶段。 有人认为，在Web Controller层写的API就是REST API。而且，从开发角度对于URI的命名、HTTP  Mehthod的选择没有建立起规范的意识。这样是不优雅的！（没有对错之分） 作为带">
@@ -408,25 +408,21 @@
 <a id="more"></a>
 <h1 id="REST-的诞生"><a href="#REST-的诞生" class="headerlink" title="REST 的诞生"></a>REST 的诞生</h1><h2 id="Web-技术发展"><a href="#Web-技术发展" class="headerlink" title="Web 技术发展"></a>Web 技术发展</h2><p>Web开发技术的发展可以粗略划分成以下几个阶段：</p>
 <ol>
-<li>静态内容阶段：在这个最初的阶段，使用Web的主要是一些研究机构。Web由大量的静态HTML文档组成，其中大多是一些学术论文。Web服务器可以被看作是支持超文本的共享文件服务器。<ul>
+<li><p>静态内容阶段：在这个最初的阶段，使用Web的主要是一些研究机构。Web由大量的静态HTML文档组成，其中大多是一些学术论文。Web服务器可以被看作是支持超文本的共享文件服务器。</p>
+<ul>
 <li>可以想象下当时的HTTP请求只有“GET”，且MIME为“HTML或TEXT”</li>
 </ul>
 </li>
-</ol>
-<ol>
-<li>CGI程序阶段：在这个阶段，Web服务器增加了一些编程API。通过这些API编写的应用程序，可以向客户端提供一些动态变化的内容。Web服务器与应用程序之间的通信，通过CGI（Common Gateway Interface）协议完成，应用程序被称作CGI程序。</li>
-</ol>
-<ol>
-<li>脚本语言阶段：在这个阶段，服务器端出现了ASP、PHP、JSP、ColdFusion等支持session的脚本语言技术，浏览器端出现了Java Applet、JavaScript等技术。使用这些技术，可以提供更加丰富的动态内容。</li>
-</ol>
-<ol>
-<li>瘦客户端应用阶段：在这个阶段，在服务器端出现了独立于Web服务器的应用服务器。同时出现了Web MVC开发模式，各种Web MVC开发框架逐渐流行，并且占据了统治地位。基于这些框架开发的Web应用，通常都是瘦客户端应用，因为它们是在服务器端生成全部的动态内容。</li>
-</ol>
-<ol>
-<li>RIA应用阶段：在这个阶段，出现了多种RIA（Rich Internet Application）技术，大幅改善了Web应用的用户体验。应用最为广泛的RIA技术是DHTML+Ajax。Ajax技术支持在不刷新页面的情况下动态更新页面中的局部内容。同时诞生了大量的Web前端DHTML开发库，例如Prototype、Dojo、ExtJS、jQuery/jQuery UI等等，很多开发库都支持单页面应用（Single Page Application）的开发。其他的RIA技术还有Adobe公司的Flex、微软公司的Silverlight、Sun公司的JavaFX（现在为Oracle公司所有）等等。</li>
-</ol>
-<ol>
-<li>移动Web应用阶段：在这个阶段，出现了大量面向移动设备的Web应用开发技术。除了Android、iOS、Windows Phone等操作系统平台原生的开发技术之外，基于HTML5的开发技术也变得非常流行。</li>
+<li><p>CGI程序阶段：在这个阶段，Web服务器增加了一些编程API。通过这些API编写的应用程序，可以向客户端提供一些动态变化的内容。Web服务器与应用程序之间的通信，通过CGI（Common Gateway Interface）协议完成，应用程序被称作CGI程序。</p>
+</li>
+<li><p>脚本语言阶段：在这个阶段，服务器端出现了ASP、PHP、JSP、ColdFusion等支持session的脚本语言技术，浏览器端出现了Java Applet、JavaScript等技术。使用这些技术，可以提供更加丰富的动态内容。</p>
+</li>
+<li><p>瘦客户端应用阶段：在这个阶段，在服务器端出现了独立于Web服务器的应用服务器。同时出现了Web MVC开发模式，各种Web MVC开发框架逐渐流行，并且占据了统治地位。基于这些框架开发的Web应用，通常都是瘦客户端应用，因为它们是在服务器端生成全部的动态内容。</p>
+</li>
+<li><p>RIA应用阶段：在这个阶段，出现了多种RIA（Rich Internet Application）技术，大幅改善了Web应用的用户体验。应用最为广泛的RIA技术是DHTML+Ajax。Ajax技术支持在不刷新页面的情况下动态更新页面中的局部内容。同时诞生了大量的Web前端DHTML开发库，例如Prototype、Dojo、ExtJS、jQuery/jQuery UI等等，很多开发库都支持单页面应用（Single Page Application）的开发。其他的RIA技术还有Adobe公司的Flex、微软公司的Silverlight、Sun公司的JavaFX（现在为Oracle公司所有）等等。</p>
+</li>
+<li><p>移动Web应用阶段：在这个阶段，出现了大量面向移动设备的Web应用开发技术。除了Android、iOS、Windows Phone等操作系统平台原生的开发技术之外，基于HTML5的开发技术也变得非常流行。</p>
+</li>
 </ol>
 <h2 id="REST-的诞生-1"><a href="#REST-的诞生-1" class="headerlink" title="REST 的诞生"></a>REST 的诞生</h2><p>从上述Web开发技术的发展过程看，Web从最初其设计者所构思的主要支持静态文档的阶段，逐渐变得越来越动态化。Web应用的交互模式，变得越来越复杂：从静态文档发展到以内容为主的门户网站、电子商务网站、搜索引擎、社交网站，再到以娱乐为主的大型多人在线游戏、手机游戏。</p>
 <p>Web发展到了1995年，在CGI、ASP等技术出现之后，沿用了多年、主要面向静态文档的HTTP/1.0协议已经无法满足Web应用的开发需求，因此需要设计新版本的HTTP协议。在HTTP/1.0协议专家组之中，有一位年轻人脱颖而出，显示出了不凡的洞察力，后来他成为了HTTP/1.1协议专家组的负责人。这位年轻人就是Apache HTTP服务器的核心开发者Roy Fielding，他还是Apache软件基金会的合作创始人。</p>
