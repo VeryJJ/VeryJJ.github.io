@@ -51,29 +51,8 @@
     </url>
 
     <url>
-        <loc>https://veryjj.github.io/tags/REST/</loc>
-        <lastmod>2018-04-23T06:29:20.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://veryjj.github.io/tags/SQL/</loc>
         <lastmod>2018-05-04T07:33:35.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://veryjj.github.io/tags/Dubbo/</loc>
-        <lastmod>2018-05-05T01:49:17.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://veryjj.github.io/tags/RPC/</loc>
-        <lastmod>2018-05-05T01:49:17.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -95,6 +74,41 @@
     <url>
         <loc>https://veryjj.github.io/tags/%E7%B4%A2%E5%BC%95/</loc>
         <lastmod>2018-05-07T00:57:45.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/REST/</loc>
+        <lastmod>2018-05-20T06:55:59.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/RESTful/</loc>
+        <lastmod>2018-05-20T07:01:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/Web/</loc>
+        <lastmod>2018-05-20T07:01:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/Dubbo/</loc>
+        <lastmod>2018-06-02T08:14:24.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/RPC/</loc>
+        <lastmod>2018-06-02T08:14:24.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

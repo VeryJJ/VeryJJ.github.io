@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="HTTP,WEB,REST," />
+  <meta name="keywords" content="Dubbo,RPC," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="场景其实，纠结只出现在例如保存表单的场景，如果服务端因各种业务上的原因（校验不通过，状态不满足等）导致保存未成功，并要返回对应的提示信息，此时服务端回应此HTTP 请求时，是用 “200 + json” 还是用“400 + 错误信息”？ 在公司内不同项目间，两种风格都有，且小伙伴们各执己见。">
-<meta name="keywords" content="HTTP,WEB,REST">
+<meta name="description" content="Dubbo Consumer的启动过程和Provider一样，以DubboNamespaceHandler为起点，去解析代码配置中的ReferenceBean。  1public class ReferenceBean&amp;lt;T&amp;gt; extends ReferenceConfig&amp;lt;T&amp;gt; implements FactoryBean, ApplicationContextAware">
+<meta name="keywords" content="Dubbo,RPC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？">
-<meta property="og:url" content="https://veryjj.github.io/2018/04/23/服务端业务处理不成功，应该返回HTTP-200-还是-HTTP-4XXX系列？/index.html">
+<meta property="og:title" content="Dubbo源码解析-Consumer启动">
+<meta property="og:url" content="https://veryjj.github.io/2018/06/02/Dubbo源码解析-Consumer启动/index.html">
 <meta property="og:site_name" content="黄老师">
-<meta property="og:description" content="场景其实，纠结只出现在例如保存表单的场景，如果服务端因各种业务上的原因（校验不通过，状态不满足等）导致保存未成功，并要返回对应的提示信息，此时服务端回应此HTTP 请求时，是用 “200 + json” 还是用“400 + 错误信息”？ 在公司内不同项目间，两种风格都有，且小伙伴们各执己见。">
+<meta property="og:description" content="Dubbo Consumer的启动过程和Provider一样，以DubboNamespaceHandler为起点，去解析代码配置中的ReferenceBean。  1public class ReferenceBean&amp;lt;T&amp;gt; extends ReferenceConfig&amp;lt;T&amp;gt; implements FactoryBean, ApplicationContextAware">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-23T06:29:20.000Z">
+<meta property="og:updated_time" content="2018-06-02T08:14:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？">
-<meta name="twitter:description" content="场景其实，纠结只出现在例如保存表单的场景，如果服务端因各种业务上的原因（校验不通过，状态不满足等）导致保存未成功，并要返回对应的提示信息，此时服务端回应此HTTP 请求时，是用 “200 + json” 还是用“400 + 错误信息”？ 在公司内不同项目间，两种风格都有，且小伙伴们各执己见。">
+<meta name="twitter:title" content="Dubbo源码解析-Consumer启动">
+<meta name="twitter:description" content="Dubbo Consumer的启动过程和Provider一样，以DubboNamespaceHandler为起点，去解析代码配置中的ReferenceBean。  1public class ReferenceBean&amp;lt;T&amp;gt; extends ReferenceConfig&amp;lt;T&amp;gt; implements FactoryBean, ApplicationContextAware">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://veryjj.github.io/2018/04/23/服务端业务处理不成功，应该返回HTTP-200-还是-HTTP-4XXX系列？/"/>
+  <link rel="canonical" href="https://veryjj.github.io/2018/06/02/Dubbo源码解析-Consumer启动/"/>
 
 
 
 
 
-  <title>服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？ | 黄老师</title>
+  <title>Dubbo源码解析-Consumer启动 | 黄老师</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://veryjj.github.io/2018/04/23/服务端业务处理不成功，应该返回HTTP-200-还是-HTTP-4XXX系列？/">
+    <link itemprop="mainEntityOfPage" href="https://veryjj.github.io/2018/06/02/Dubbo源码解析-Consumer启动/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄老师">
@@ -314,7 +314,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？</h2>
+          <h2 class="post-title" itemprop="name headline">Dubbo源码解析-Consumer启动</h2>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T14:27:23+08:00">
-                2018-04-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-02T15:06:57+08:00">
+                2018-06-02
               </time>
             
 
@@ -366,7 +366,7 @@
 
           
           
-             <span id="/2018/04/23/服务端业务处理不成功，应该返回HTTP-200-还是-HTTP-4XXX系列？/" class="leancloud_visitors" data-flag-title="服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？">
+             <span id="/2018/06/02/Dubbo源码解析-Consumer启动/" class="leancloud_visitors" data-flag-title="Dubbo源码解析-Consumer启动">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -402,37 +402,43 @@
       
 
       
-        <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>其实，纠结只出现在例如保存表单的场景，如果服务端因各种业务上的原因（校验不通过，状态不满足等）导致保存未成功，并要返回对应的提示信息，此时服务端回应此HTTP 请求时，是用 “200 + json” 还是用“400 + 错误信息”？</p>
-<p>在公司内不同项目间，两种风格都有，且小伙伴们各执己见。</p>
+        <ul>
+<li>Dubbo Consumer的启动过程和Provider一样，以DubboNamespaceHandler为起点，去解析代码配置中的ReferenceBean。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceBean</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">ReferenceConfig</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">FactoryBean</span>, <span class="title">ApplicationContextAware</span>, <span class="title">InitializingBean</span>, <span class="title">DisposableBean</span> </span>&#123;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="我这么看"><a href="#我这么看" class="headerlink" title="我这么看"></a>我这么看</h2><p>首先，我先表达我赞同“200 + json”的方式。</p>
-<p>更具体些，服务端所有的Controller Method对返回值做统一的Response包装</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">样例<span class="number">1</span>：</span><br><span class="line">&#123;</span><br><span class="line">   <span class="string">"code"</span>: <span class="number">200</span>,</span><br><span class="line">   <span class="string">"data"</span>: &#123;...&#125;,</span><br><span class="line">   <span class="string">"message"</span>:<span class="string">"操作成功"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">样例<span class="number">2</span>：</span><br><span class="line">&#123;</span><br><span class="line">   <span class="string">"success"</span>: <span class="keyword">false</span></span><br><span class="line">   <span class="string">"data"</span>: &#123;...&#125;,</span><br><span class="line">   <span class="string">"code"</span>: <span class="number">100409</span>,</span><br><span class="line">   <span class="string">"message"</span>:<span class="string">"数据已存在"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="我的观点"><a href="#我的观点" class="headerlink" title="我的观点"></a>我的观点</h3><h4 id="1-协议分层"><a href="#1-协议分层" class="headerlink" title="1. 协议分层"></a>1. 协议分层</h4><p>对于RPC请求，存在两个层面的操作结果</p>
-<p>[1] HTTP请求本身的结果 ———— 业务无关性，与网络、框架层面相关<br>[2] 业务处理的结果 ———— 强业务逻辑相关性，与网络、框架层面无关</p>
-<p>为什么我们会有本贴讨论的话题与分歧，或者说为什么大部分人觉得http code不够试用，是因为实际开发应用场景中，尝试着只用http code 去表达上述两个层面的结果。</p>
-<p>分层表示的优点：</p>
-<ol>
-<li>RPC请求， 是可以基于不同的底层协议的， 比如我们用的HTTP协议，很容易替换成ZeroMQ, RabbitMQ,  UDP， 基于TCP的自定义协议…… 只要能实现一问一答模型的协议，都是可以用的。这个时候， HTTP协议只是一种底层协议， 底层协议的错误号，并不应该被上层协议使用。</li>
-</ol>
-<h4 id="2-HTTP-Code-表达能力局限性"><a href="#2-HTTP-Code-表达能力局限性" class="headerlink" title="2. HTTP Code 表达能力局限性"></a>2. HTTP Code 表达能力局限性</h4><p>虽然HTTP协议非常友好的定义了诸多的HTTP Code码，但在实际开发应用中，对于繁多的应用场景，HTTP Code的表达能力显得力不从心，部分场景仍旧不能避免的辅以Response Body信息。加之这些HTTP Code并不是应用开发中的绝对标准。</p>
-<h4 id="3-HTTP-Code-语义表达的不统一性"><a href="#3-HTTP-Code-语义表达的不统一性" class="headerlink" title="3. HTTP Code 语义表达的不统一性"></a>3. HTTP Code 语义表达的不统一性</h4><p>[1] 同样是HTTP 4XX系列，不同系统的解释也是不一样的<br>[2] 同样是”参数校验不通过”的业务问题，不同系统使用的HTTP码也是不一样的</p>
-<h4 id="4-Http-Code数量有限，表达能力有限"><a href="#4-Http-Code数量有限，表达能力有限" class="headerlink" title="4. Http Code数量有限，表达能力有限"></a>4. Http Code数量有限，表达能力有限</h4><p>这个应该很好理解，大家应该也有体会。</p>
-<h4 id="5-系统集成友好性"><a href="#5-系统集成友好性" class="headerlink" title="5. 系统集成友好性"></a>5. 系统集成友好性</h4><p>如果我们把HTTP协议当作一种传输层协议看待，200 可以很好表达， 整个底层传输都是没有问题， 包括负载均衡系统， nginx， 反向代理， fast cgi守护程序都是工作正常的。</p>
-<p>而返回各种HTTP Status Code经常会让外部使用者非常的困惑，特别是他们对HTTP Status Code有一定了解，却对你的系统不甚了解的情况下。</p>
-<p>所以，除了考虑ajax请求的处理，还要考虑整个调用的中间链路以及框架集成方面的因素</p>
 <ul>
-<li>返回200能避免CDN等中间商替换或缓存<ul>
-<li>国内的通信运营商画蛇添足根据HTTP状态码给替换成导航页或广告推广页面</li>
+<li>ReferenceBean同样既继承了ReferenceConfig，又实现了InitializingBean。也是在afterProperitesSet()中去执行服务引用<ul>
+<li>ReferenceBean<ul>
+<li>afterPropertiesSet<ul>
+<li>ReferenceConfig<ul>
+<li>init()<ul>
+<li>完成service interface的class， methods解析</li>
+<li>获取Service 注册中心registeries配置信息，用于向注册中西订阅service</li>
+<li>检测是否配置有Dubbo Mock， Dubbo Stub</li>
+<li>createProxy()完成ReferenceConfig + Registeries ——》 Dubbo Service Invoker的转化。createProxy()返回时，返回的是被Proxy后的Invoker，即外层加了Dubbo Filter Chain。<ul>
+<li>DubboProtocol.refer(…)</li>
 </ul>
 </li>
-<li>对于系统审计程序不友好，例如 HTTP Response Code = 4XX的请求算请求成功？请求失败？请求异常？————无法区分！</li>
 </ul>
-<h4 id="6-扩展性"><a href="#6-扩展性" class="headerlink" title="6. 扩展性"></a>6. 扩展性</h4><ul>
-<li>返回200OK，扩展性更强，修改的时候只需要修改字段而不需要特别处理Status Code</li>
-<li>易于与真正的400错误区分，方便审计和分析。而实际上，当服务器能够正常返回，证明服务器已经正确的理解并得出相应的结果（并且这个结果也是预定义的，并非未知），这显然与400的定义不符。</li>
-<li>返回200更优。保不准哪天某种状态是HTTP协议不支持的，保不准哪个需要新增的字段是HTTP协议没有的</li>
+</li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="DubboProtocol"><a href="#DubboProtocol" class="headerlink" title="DubboProtocol"></a>DubboProtocol</h3><p>DubboProtocol.class 作为Dubbo RPC层的具体实现协议，尤其完成Consumer中向注册中心真正订阅的动作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DubboProtocol</span> <span class="keyword">extends</span> <span class="title">AbstractProtocol</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">Invoker&lt;T&gt; <span class="title">refer</span><span class="params">(Class&lt;T&gt; serviceType, URL url)</span> <span class="keyword">throws</span> RpcException </span>&#123;</span><br><span class="line">        optimizeSerialization(url);</span><br><span class="line">        <span class="comment">// create rpc invoker with url.</span></span><br><span class="line">        DubboInvoker&lt;T&gt; invoker = <span class="keyword">new</span> DubboInvoker&lt;T&gt;(serviceType, url, getClients(url), invokers);</span><br><span class="line">        invokers.add(invoker);</span><br><span class="line">        <span class="keyword">return</span> invoker;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> ExchangeClient[] getClients(URL url) &#123;</span><br><span class="line">        <span class="comment">// whether to share connection</span></span><br><span class="line">        <span class="keyword">boolean</span> service_share_connect = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">int</span> connections = url.getParameter(Constants.CONNECTIONS_KEY, <span class="number">0</span>);</span><br><span class="line">        <span class="comment">// if not configured, connection is shared, otherwise, one connection for one service</span></span><br><span class="line">        <span class="keyword">if</span> (connections == <span class="number">0</span>) &#123;</span><br><span class="line">            service_share_connect = <span class="keyword">true</span>;</span><br><span class="line">            connections = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ExchangeClient[] clients = <span class="keyword">new</span> ExchangeClient[connections];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; clients.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (service_share_connect) &#123;</span><br><span class="line">                clients[i] = getSharedClient(url);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                clients[i] = initClient(url);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> clients;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Invoker"><a href="#Invoker" class="headerlink" title="Invoker"></a>Invoker</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Invoker</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * get service interface.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> service interface.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Class&lt;T&gt; <span class="title">getInterface</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * invoke.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> invocation</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> RpcException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Result <span class="title">invoke</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> RpcException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DubboInvoker</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractInvoker</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//与Service Provider端的连接</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ExchangeClient[] clients;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//同一service的invokers集合，集群时用到。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;Invoker&lt;?&gt;&gt; invokers;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DubboInvoker</span><span class="params">(Class&lt;T&gt; serviceType, URL url, ExchangeClient[] clients, Set&lt;Invoker&lt;?&gt;&gt; invokers)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(serviceType, url, <span class="keyword">new</span> String[]&#123;Constants.INTERFACE_KEY, Constants.GROUP_KEY, Constants.TOKEN_KEY, Constants.TIMEOUT_KEY&#125;);</span><br><span class="line">        <span class="keyword">this</span>.clients = clients;</span><br><span class="line">        <span class="comment">// get version.</span></span><br><span class="line">        <span class="keyword">this</span>.version = url.getParameter(Constants.VERSION_KEY, <span class="string">"0.0.0"</span>);</span><br><span class="line">        <span class="keyword">this</span>.invokers = invokers;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Result <span class="title">doInvoke</span><span class="params">(<span class="keyword">final</span> Invocation invocation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        RpcInvocation inv = (RpcInvocation) invocation;</span><br><span class="line">        <span class="keyword">final</span> String methodName = RpcUtils.getMethodName(invocation);</span><br><span class="line">        inv.setAttachment(Constants.PATH_KEY, getUrl().getPath());</span><br><span class="line">        inv.setAttachment(Constants.VERSION_KEY, version);</span><br><span class="line"></span><br><span class="line">        ExchangeClient currentClient;</span><br><span class="line">        <span class="keyword">if</span> (clients.length == <span class="number">1</span>) &#123;</span><br><span class="line">            currentClient = clients[<span class="number">0</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            currentClient = clients[index.getAndIncrement() % clients.length];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">boolean</span> isAsync = RpcUtils.isAsync(getUrl(), invocation);</span><br><span class="line">            <span class="keyword">boolean</span> isOneway = RpcUtils.isOneway(getUrl(), invocation);</span><br><span class="line">            <span class="keyword">int</span> timeout = getUrl().getMethodParameter(methodName, Constants.TIMEOUT_KEY, Constants.DEFAULT_TIMEOUT);</span><br><span class="line">            <span class="keyword">if</span> (isOneway) &#123;</span><br><span class="line">                <span class="keyword">boolean</span> isSent = getUrl().getMethodParameter(methodName, Constants.SENT_KEY, <span class="keyword">false</span>);</span><br><span class="line">                currentClient.send(inv, isSent);</span><br><span class="line">                RpcContext.getContext().setFuture(<span class="keyword">null</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> RpcResult();</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isAsync) &#123;</span><br><span class="line">                ResponseFuture future = currentClient.request(inv, timeout);</span><br><span class="line">                RpcContext.getContext().setFuture(<span class="keyword">new</span> FutureAdapter&lt;Object&gt;(future));</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> RpcResult();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                RpcContext.getContext().setFuture(<span class="keyword">null</span>);</span><br><span class="line">                <span class="keyword">return</span> (Result) currentClient.request(inv, timeout).get();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TimeoutException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RpcException(RpcException.TIMEOUT_EXCEPTION, <span class="string">"Invoke remote method timeout. method: "</span> + invocation.getMethodName() + <span class="string">", provider: "</span> + getUrl() + <span class="string">", cause: "</span> + e.getMessage(), e);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemotingException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RpcException(RpcException.NETWORK_EXCEPTION, <span class="string">"Failed to invoke remote method: "</span> + invocation.getMethodName() + <span class="string">", provider: "</span> + getUrl() + <span class="string">", cause: "</span> + e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ReferenceConfig-核心数据"><a href="#ReferenceConfig-核心数据" class="headerlink" title="ReferenceConfig 核心数据"></a>ReferenceConfig 核心数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceConfig</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractReferenceConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">//核心是DubboProtocol</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Protocol refprotocol = ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//集群模式下使用，此处不解释</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Cluster cluster = ExtensionLoader.getExtensionLoader(Cluster.class).getAdaptiveExtension();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//注册中心地址</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;URL&gt; urls = <span class="keyword">new</span> ArrayList&lt;URL&gt;();</span><br><span class="line">    <span class="comment">// interface name</span></span><br><span class="line">    <span class="keyword">private</span> String interfaceName;</span><br><span class="line">    <span class="keyword">private</span> Class&lt;?&gt; interfaceClass;</span><br><span class="line">    <span class="comment">// client type</span></span><br><span class="line">    <span class="keyword">private</span> String client;</span><br><span class="line">    <span class="comment">// url for peer-to-peer invocation</span></span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="comment">// Service的方法列表</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;MethodConfig&gt; methods;</span><br><span class="line">    <span class="comment">// default config</span></span><br><span class="line">    <span class="keyword">private</span> ConsumerConfig consumer;</span><br><span class="line">    <span class="keyword">private</span> String protocol;</span><br><span class="line">    <span class="comment">// invoker 的代理类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> T ref;</span><br><span class="line">    <span class="comment">//原生的service invoker</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Invoker&lt;?&gt; invoker;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> initialized;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> destroyed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ConsumerModel"><a href="#ConsumerModel" class="headerlink" title="ConsumerModel"></a>ConsumerModel</h3><p>经过ReferenceConfig一番处理后，最终会得到：Reference Dubbo Service Name, InvokerRef, Service Methods, ReferenceConfig Instance。</p>
+<p>这些信息会封装成ConsumerModel，放到ApplicationModel.class中去全局统一记录Consumer的情况。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerModel</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ReferenceConfig metadata;</span><br><span class="line">    <span class="keyword">private</span> Object proxyObject;</span><br><span class="line">    <span class="keyword">private</span> String serviceName;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Map&lt;Method, ConsumerMethodModel&gt; methodModels = <span class="keyword">new</span> IdentityHashMap&lt;Method, ConsumerMethodModel&gt;();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -484,11 +490,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HTTP/" rel="tag"><i class="fa fa-tag"></i> HTTP</a>
+            <a href="/tags/Dubbo/" rel="tag"><i class="fa fa-tag"></i> Dubbo</a>
           
-            <a href="/tags/WEB/" rel="tag"><i class="fa fa-tag"></i> WEB</a>
-          
-            <a href="/tags/REST/" rel="tag"><i class="fa fa-tag"></i> REST</a>
+            <a href="/tags/RPC/" rel="tag"><i class="fa fa-tag"></i> RPC</a>
           
         </div>
       
@@ -501,8 +505,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/22/Dubbo源码解析-Spring-Bean注册/" rel="next" title="Dubbo源码解析-Spring Bean注册">
-                <i class="fa fa-chevron-left"></i> Dubbo源码解析-Spring Bean注册
+              <a href="/2018/05/20/翻译-REST-API必须是超文本驱动的/" rel="next" title="[翻译] REST API必须是超文本驱动的">
+                <i class="fa fa-chevron-left"></i> [翻译] REST API必须是超文本驱动的
               </a>
             
           </div>
@@ -510,10 +514,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/02/Dubbo源码解析-Provider暴露服务/" rel="prev" title="Dubbo源码解析-Provider暴露服务">
-                Dubbo源码解析-Provider暴露服务 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -728,7 +728,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我这么看"><span class="nav-number">2.</span> <span class="nav-text">我这么看</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的观点"><span class="nav-number">2.1.</span> <span class="nav-text">我的观点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-协议分层"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. 协议分层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-HTTP-Code-表达能力局限性"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. HTTP Code 表达能力局限性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-HTTP-Code-语义表达的不统一性"><span class="nav-number">2.1.3.</span> <span class="nav-text">3. HTTP Code 语义表达的不统一性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Http-Code数量有限，表达能力有限"><span class="nav-number">2.1.4.</span> <span class="nav-text">4. Http Code数量有限，表达能力有限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-系统集成友好性"><span class="nav-number">2.1.5.</span> <span class="nav-text">5. 系统集成友好性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-扩展性"><span class="nav-number">2.1.6.</span> <span class="nav-text">6. 扩展性</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DubboProtocol"><span class="nav-number">1.</span> <span class="nav-text">DubboProtocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Invoker"><span class="nav-number">2.</span> <span class="nav-text">Invoker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReferenceConfig-核心数据"><span class="nav-number">3.</span> <span class="nav-text">ReferenceConfig 核心数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConsumerModel"><span class="nav-number">4.</span> <span class="nav-text">ConsumerModel</span></a></li></ol></div>
             
 
           </div>
