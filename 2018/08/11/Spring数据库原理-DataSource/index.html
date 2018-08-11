@@ -77,7 +77,7 @@
 
 
 
-  <meta name="keywords" content="数据库,Spring," />
+  <meta name="keywords" content="数据库,Spring,DataSource," />
 
 
 
@@ -91,7 +91,7 @@
 
 
 <meta name="description" content="DataSource引言用Spring进行Web应用开发时，我们经常会做datasource的配置。而且datasource的配法风格各异。那么他们到底有哪些异同点呢？    DataSource作用DataSource是javax.sql包中的类，是Java原生rt.jar包中的类。 1234567public interface DataSource  extends CommonDataSo">
-<meta name="keywords" content="数据库,Spring">
+<meta name="keywords" content="数据库,Spring,DataSource">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring数据库原理-DataSource">
 <meta property="og:url" content="https://veryjj.github.io/2018/08/11/Spring数据库原理-DataSource/index.html">
@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://veryjj.github.io/2018/08/11/Spring数据库原理-DataSource/image-20180811152018356.png">
 <meta property="og:image" content="https://veryjj.github.io/2018/08/11/Spring数据库原理-DataSource/image-20180811152412438.png">
 <meta property="og:image" content="https://veryjj.github.io/2018/08/11/Spring数据库原理-DataSource/img-1.png">
-<meta property="og:updated_time" content="2018-08-11T07:37:24.000Z">
+<meta property="og:updated_time" content="2018-08-11T08:36:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring数据库原理-DataSource">
 <meta name="twitter:description" content="DataSource引言用Spring进行Web应用开发时，我们经常会做datasource的配置。而且datasource的配法风格各异。那么他们到底有哪些异同点呢？    DataSource作用DataSource是javax.sql包中的类，是Java原生rt.jar包中的类。 1234567public interface DataSource  extends CommonDataSo">
@@ -415,7 +415,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DataSource</span>  <span class="keyword">extends</span> <span class="title">CommonDataSource</span>, <span class="title">Wrapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function">Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function">Connection <span class="title">getConnection</span><span class="params">(String username, String password)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> SQLException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>javax.sql.DataSource定义的是抽象方法，通过Java JNDI的方式将具体实现开放给各个厂商、组织自己、个人自己实现。</p>
-<p>在Spring框架中，通过DataSource + 配置文件的方式，来定义具体的数据库源。并向Spring框架提供数据源的Connection服务。</p>
+<p>在Spring框架中，通过DataSource + 配置的方式，来定义具体的数据库源。并向Spring框架提供数据源的Connection服务。</p>
 <p>在Spring中若想实现多数据源，那么就需要在DataSource下手。</p>
 <h2 id="javax-sql-DataSource源码注释说明"><a href="#javax-sql-DataSource源码注释说明" class="headerlink" title="javax.sql.DataSource源码注释说明"></a>javax.sql.DataSource源码注释说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * &lt;p&gt;A factory for connections to the physical data source that this</span><br><span class="line"> * &#123;@code DataSource&#125; object represents.  An alternative to the</span><br><span class="line"> * &#123;@code DriverManager&#125; facility, a &#123;@code DataSource&#125; object</span><br><span class="line"> * is the preferred means of getting a connection. An object that implements</span><br><span class="line"> * the &#123;@code DataSource&#125; interface will typically be</span><br><span class="line"> * registered with a naming service based on the</span><br><span class="line"> * Java&amp;trade; Naming and Directory (JNDI) API.</span><br><span class="line"> * &lt;P&gt;</span><br><span class="line"> * The &#123;@code DataSource&#125; interface is implemented by a driver vendor.</span><br><span class="line"> * There are three types of implementations:</span><br><span class="line"> * &lt;OL&gt;</span><br><span class="line"> *   &lt;LI&gt;Basic implementation -- produces a standard &#123;@code Connection&#125;</span><br><span class="line"> *       object</span><br><span class="line"> *   &lt;LI&gt;Connection pooling implementation -- produces a &#123;@code Connection&#125;</span><br><span class="line"> *       object that will automatically participate in connection pooling.  This</span><br><span class="line"> *       implementation works with a middle-tier connection pooling manager.</span><br><span class="line"> *   &lt;LI&gt;Distributed transaction implementation -- produces a</span><br><span class="line"> *       &#123;@code Connection&#125; object that may be used for distributed</span><br><span class="line"> *       transactions and almost always participates in connection pooling.</span><br><span class="line"> *       This implementation works with a middle-tier</span><br><span class="line"> *       transaction manager and almost always with a connection</span><br><span class="line"> *       pooling manager.</span><br><span class="line"> * &lt;/OL&gt;</span><br><span class="line"> * &lt;P&gt;</span><br><span class="line"> * A &#123;@code DataSource&#125; object has properties that can be modified</span><br><span class="line"> * when necessary.  For example, if the data source is moved to a different</span><br><span class="line"> * server, the property for the server can be changed.  The benefit is that</span><br><span class="line"> * because the data source&apos;s properties can be changed, any code accessing</span><br><span class="line"> * that data source does not need to be changed.</span><br><span class="line"> * &lt;P&gt;</span><br><span class="line"> * A driver that is accessed via a &#123;@code DataSource&#125; object does not</span><br><span class="line"> * register itself with the &#123;@code DriverManager&#125;.  Rather, a</span><br><span class="line"> * &#123;@code DataSource&#125; object is retrieved though a lookup operation</span><br><span class="line"> * and then used to create a &#123;@code Connection&#125; object.  With a basic</span><br><span class="line"> * implementation, the connection obtained through a &#123;@code DataSource&#125;</span><br><span class="line"> * object is identical to a connection obtained through the</span><br><span class="line"> * &#123;@code DriverManager&#125; facility.</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * An implementation of &#123;@code DataSource&#125; must include a public no-arg</span><br><span class="line"> * constructor.</span><br><span class="line"> *</span><br><span class="line"> * @since 1.4</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
 <h3 id="概要翻译"><a href="#概要翻译" class="headerlink" title="概要翻译"></a>概要翻译</h3><ol>
@@ -508,6 +508,8 @@
           
             <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
           
+            <a href="/tags/DataSource/" rel="tag"><i class="fa fa-tag"></i> DataSource</a>
+          
         </div>
       
 
@@ -528,6 +530,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/Spring数据库原理-事务管理/" rel="prev" title="Spring数据库原理-事务管理">
+                Spring数据库原理-事务管理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -634,7 +640,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -656,7 +662,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -697,7 +703,7 @@ var jiathis_config={
             <div class="widget-wrap">
             <div id="myCanvasContainer" class="widget tagcloud">
                 <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Netty/">Netty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTful/">RESTful</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/">RPC</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/">WEB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式事务/">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析图/">分析图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">1</span></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataSource/">DataSource</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Netty/">Netty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTful/">RESTful</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/">RPC</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/">WEB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式事务/">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析图/">分析图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">1</span></li></ul>
                 </canvas>
             </div>
             </div>

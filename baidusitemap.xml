@@ -4,8 +4,32 @@
 
     
   <url>
+    <loc>https://veryjj.github.io/2018/08/11/Spring%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86-%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2018-08-11T11:45:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>Spring数据库原理-事务管理</title>
+        <pubTime>2018-08-11T08:33:54.000Z</pubTime>
+        
+        <tag>数据库</tag>
+         
+        <tag>Spring</tag>
+         
+        <tag>数据库事务</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://veryjj.github.io/2018/08/11/Spring%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86-DataSource/</loc>
-    <lastmod>2018-08-11T07:37:24.000Z</lastmod>
+    <lastmod>2018-08-11T08:36:52.000Z</lastmod>
     <data>
         <display>
         <title>Spring数据库原理-DataSource</title>
@@ -14,6 +38,8 @@
         <tag>数据库</tag>
          
         <tag>Spring</tag>
+         
+        <tag>DataSource</tag>
          
          
            
