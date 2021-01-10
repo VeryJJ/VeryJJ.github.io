@@ -4,14 +4,16 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/05/20/%E7%BF%BB%E8%AF%91-REST-API%E5%BF%85%E9%A1%BB%E6%98%AF%E8%B6%85%E6%96%87%E6%9C%AC%E9%A9%B1%E5%8A%A8%E7%9A%84/</loc>
-    <lastmod>2020-10-05T14:14:57.309Z</lastmod>
+    <loc>https://veryjj.github.io/2020/10/04/%E4%B8%80%E6%96%87%E5%B0%B1%E8%AE%A9%E4%BD%A0%E7%B2%BE%E9%80%9AJVM/</loc>
+    <lastmod>2021-01-10T08:42:00.093Z</lastmod>
     <data>
         <display>
-        <title>[翻译] REST API必须是超文本驱动的</title>
-        <pubTime>2018-05-20T06:53:12.000Z</pubTime>
+        <title>一文就让你精通JVM</title>
+        <pubTime>2020-10-04T12:34:00.000Z</pubTime>
         
-        <tag>REST</tag>
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
          
          
            
@@ -35,6 +37,26 @@
          
         <tag>WEB</tag>
          
+        <tag>REST</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2018/05/20/%E7%BF%BB%E8%AF%91-REST-API%E5%BF%85%E9%A1%BB%E6%98%AF%E8%B6%85%E6%96%87%E6%9C%AC%E9%A9%B1%E5%8A%A8%E7%9A%84/</loc>
+    <lastmod>2020-10-05T14:14:57.309Z</lastmod>
+    <data>
+        <display>
+        <title>[翻译] REST API必须是超文本驱动的</title>
+        <pubTime>2018-05-20T06:53:12.000Z</pubTime>
+        
         <tag>REST</tag>
          
          
@@ -182,18 +204,16 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/05/06/MySQL%E7%B4%A2%E5%BC%95%E5%90%88%E5%B9%B6/</loc>
+    <loc>https://veryjj.github.io/2018/05/18/RESTful-API%E5%91%BD%E5%90%8D%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2020-10-05T14:14:57.302Z</lastmod>
     <data>
         <display>
-        <title>MySQL索引合并</title>
-        <pubTime>2018-05-06T09:55:18.000Z</pubTime>
+        <title>RESTful API命名实践</title>
+        <pubTime>2018-05-18T02:29:30.000Z</pubTime>
         
-        <tag>数据库</tag>
+        <tag>RESTful</tag>
          
-        <tag>MySQL</tag>
-         
-        <tag>索引</tag>
+        <tag>Web</tag>
          
          
            
@@ -206,16 +226,18 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/05/18/RESTful-API%E5%91%BD%E5%90%8D%E5%AE%9E%E8%B7%B5/</loc>
+    <loc>https://veryjj.github.io/2018/08/11/Spring%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86-DataSource/</loc>
     <lastmod>2020-10-05T14:14:57.302Z</lastmod>
     <data>
         <display>
-        <title>RESTful API命名实践</title>
-        <pubTime>2018-05-18T02:29:30.000Z</pubTime>
+        <title>Spring数据库原理-DataSource</title>
+        <pubTime>2018-08-11T06:57:39.000Z</pubTime>
         
-        <tag>RESTful</tag>
+        <tag>数据库</tag>
          
-        <tag>Web</tag>
+        <tag>Spring</tag>
+         
+        <tag>DataSource</tag>
          
          
            
@@ -250,18 +272,18 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/08/11/Spring%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86-DataSource/</loc>
+    <loc>https://veryjj.github.io/2018/05/06/MySQL%E7%B4%A2%E5%BC%95%E5%90%88%E5%B9%B6/</loc>
     <lastmod>2020-10-05T14:14:57.302Z</lastmod>
     <data>
         <display>
-        <title>Spring数据库原理-DataSource</title>
-        <pubTime>2018-08-11T06:57:39.000Z</pubTime>
+        <title>MySQL索引合并</title>
+        <pubTime>2018-05-06T09:55:18.000Z</pubTime>
         
         <tag>数据库</tag>
          
-        <tag>Spring</tag>
+        <tag>MySQL</tag>
          
-        <tag>DataSource</tag>
+        <tag>索引</tag>
          
          
            
@@ -387,28 +409,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>https://veryjj.github.io/2020/10/04/%E4%B8%80%E6%96%87%E5%B0%B1%E8%AE%A9%E4%BD%A0%E7%B2%BE%E9%80%9AJVM/</loc>
-    <lastmod>2020-10-05T14:14:49.871Z</lastmod>
-    <data>
-        <display>
-        <title>一文就让你精通JVM</title>
-        <pubTime>2020-10-04T12:34:00.000Z</pubTime>
-        
-        <tag>JVM</tag>
-         
-        <tag>Java</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>https://veryjj.github.io/2018/04/08/Netty-%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1%E6%A2%B3%E7%90%86-1/</loc>
