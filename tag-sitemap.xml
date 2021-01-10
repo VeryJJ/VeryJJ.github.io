@@ -79,6 +79,13 @@
     </url>
 
     <url>
+        <loc>https://veryjj.github.io/tags/SQL/</loc>
+        <lastmod>2020-10-05T14:14:57.302Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://veryjj.github.io/tags/MySQL/</loc>
         <lastmod>2020-10-05T14:14:57.302Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -93,7 +100,7 @@
     </url>
 
     <url>
-        <loc>https://veryjj.github.io/tags/SQL/</loc>
+        <loc>https://veryjj.github.io/tags/DataSource/</loc>
         <lastmod>2020-10-05T14:14:57.302Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -108,13 +115,6 @@
 
     <url>
         <loc>https://veryjj.github.io/tags/Web/</loc>
-        <lastmod>2020-10-05T14:14:57.302Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://veryjj.github.io/tags/DataSource/</loc>
         <lastmod>2020-10-05T14:14:57.302Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -142,14 +142,14 @@
     </url>
 
     <url>
-        <loc>https://veryjj.github.io/tags/API%E5%91%BD%E5%90%8D/</loc>
+        <loc>https://veryjj.github.io/tags/API%E7%89%88%E6%9C%AC/</loc>
         <lastmod>2020-10-05T14:14:57.307Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://veryjj.github.io/tags/API%E7%89%88%E6%9C%AC/</loc>
+        <loc>https://veryjj.github.io/tags/API%E5%91%BD%E5%90%8D/</loc>
         <lastmod>2020-10-05T14:14:57.307Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -240,20 +240,6 @@
     </url>
 
     <url>
-        <loc>https://veryjj.github.io/tags/ThreadLocal/</loc>
-        <lastmod>2021-01-10T09:15:06.601Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://veryjj.github.io/tags/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/</loc>
-        <lastmod>2021-01-10T09:15:06.601Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://veryjj.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%A7%82/</loc>
         <lastmod>2021-01-10T09:16:19.544Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -310,13 +296,6 @@
     </url>
 
     <url>
-        <loc>https://veryjj.github.io/tags/Java/</loc>
-        <lastmod>2021-01-10T09:23:23.274Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://veryjj.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
         <lastmod>2021-01-10T09:23:23.274Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -326,6 +305,27 @@
     <url>
         <loc>https://veryjj.github.io/tags/%E5%B9%B6%E5%8F%91/</loc>
         <lastmod>2021-01-10T09:23:23.274Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/Java/</loc>
+        <lastmod>2021-01-10T09:28:25.234Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/ThreadLocal/</loc>
+        <lastmod>2021-01-10T09:28:25.234Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://veryjj.github.io/tags/%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/</loc>
+        <lastmod>2021-01-10T09:28:25.234Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
