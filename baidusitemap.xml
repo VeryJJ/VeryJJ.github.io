@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://veryjj.github.io/2021/01/09/ThreadLocal%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2021-01-10T09:28:25.234Z</lastmod>
+    <data>
+        <display>
+        <title>ThreadLocal内存泄露知识点详解</title>
+        <pubTime>2021-01-09T08:48:18.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>ThreadLocal</tag>
+         
+        <tag>内存泄露</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://veryjj.github.io/2020/11/15/%E4%B8%80%E6%96%87%E5%B0%B1%E6%98%8E%E7%99%BD%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2021-01-10T09:23:23.274Z</lastmod>
     <data>
@@ -137,30 +161,6 @@
            
              
               <breadCrumb title="管理" url="https://veryjj.github.io/categories/%E7%AE%A1%E7%90%86/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://veryjj.github.io/2021/01/09/ThreadLocal%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2021-01-10T09:15:06.601Z</lastmod>
-    <data>
-        <display>
-        <title>ThreadLocal内存泄露知识点详解</title>
-        <pubTime>2021-01-09T08:48:18.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>ThreadLocal</tag>
-         
-        <tag>内存泄露</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
           
         </display>
     </data>
@@ -324,13 +324,17 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/05/20/%E7%BF%BB%E8%AF%91-REST-API%E5%BF%85%E9%A1%BB%E6%98%AF%E8%B6%85%E6%96%87%E6%9C%AC%E9%A9%B1%E5%8A%A8%E7%9A%84/</loc>
+    <loc>https://veryjj.github.io/2018/04/23/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%9A%E5%8A%A1%E5%A4%84%E7%90%86%E4%B8%8D%E6%88%90%E5%8A%9F%EF%BC%8C%E5%BA%94%E8%AF%A5%E8%BF%94%E5%9B%9EHTTP-200-%E8%BF%98%E6%98%AF-HTTP-4XXX%E7%B3%BB%E5%88%97%EF%BC%9F/</loc>
     <lastmod>2020-10-05T14:14:57.309Z</lastmod>
     <data>
         <display>
-        <title>[翻译] REST API必须是超文本驱动的</title>
-        <pubTime>2018-05-20T06:53:12.000Z</pubTime>
+        <title>服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？</title>
+        <pubTime>2018-04-23T06:27:23.000Z</pubTime>
         
+        <tag>HTTP</tag>
+         
+        <tag>WEB</tag>
+         
         <tag>REST</tag>
          
          
@@ -344,17 +348,13 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/04/23/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%9A%E5%8A%A1%E5%A4%84%E7%90%86%E4%B8%8D%E6%88%90%E5%8A%9F%EF%BC%8C%E5%BA%94%E8%AF%A5%E8%BF%94%E5%9B%9EHTTP-200-%E8%BF%98%E6%98%AF-HTTP-4XXX%E7%B3%BB%E5%88%97%EF%BC%9F/</loc>
+    <loc>https://veryjj.github.io/2018/05/20/%E7%BF%BB%E8%AF%91-REST-API%E5%BF%85%E9%A1%BB%E6%98%AF%E8%B6%85%E6%96%87%E6%9C%AC%E9%A9%B1%E5%8A%A8%E7%9A%84/</loc>
     <lastmod>2020-10-05T14:14:57.309Z</lastmod>
     <data>
         <display>
-        <title>服务端业务处理不成功，应该返回HTTP 200 还是 HTTP 4XXX系列？</title>
-        <pubTime>2018-04-23T06:27:23.000Z</pubTime>
+        <title>[翻译] REST API必须是超文本驱动的</title>
+        <pubTime>2018-05-20T06:53:12.000Z</pubTime>
         
-        <tag>HTTP</tag>
-         
-        <tag>WEB</tag>
-         
         <tag>REST</tag>
          
          
@@ -412,16 +412,16 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83/</loc>
+    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/</loc>
     <lastmod>2020-10-05T14:14:57.307Z</lastmod>
     <data>
         <display>
-        <title>服务API设计之——API版本规范</title>
-        <pubTime>2018-09-30T09:32:07.000Z</pubTime>
+        <title>服务API设计之——API命名规范</title>
+        <pubTime>2018-09-30T09:46:20.000Z</pubTime>
         
         <tag>API</tag>
          
-        <tag>API版本</tag>
+        <tag>API命名</tag>
          
          
            
@@ -434,16 +434,16 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/</loc>
+    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83/</loc>
     <lastmod>2020-10-05T14:14:57.307Z</lastmod>
     <data>
         <display>
-        <title>服务API设计之——API命名规范</title>
-        <pubTime>2018-09-30T09:46:20.000Z</pubTime>
+        <title>服务API设计之——API版本规范</title>
+        <pubTime>2018-09-30T09:32:07.000Z</pubTime>
         
         <tag>API</tag>
          
-        <tag>API命名</tag>
+        <tag>API版本</tag>
          
          
            
@@ -509,31 +509,9 @@
         <title>MySQL子查询很慢的问题分析</title>
         <pubTime>2018-05-04T07:29:46.000Z</pubTime>
         
-        <tag>数据库</tag>
-         
         <tag>SQL</tag>
          
-         
-           
-             
-              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://veryjj.github.io/2018/05/18/RESTful-API%E5%91%BD%E5%90%8D%E5%AE%9E%E8%B7%B5/</loc>
-    <lastmod>2020-10-05T14:14:57.302Z</lastmod>
-    <data>
-        <display>
-        <title>RESTful API命名实践</title>
-        <pubTime>2018-05-18T02:29:30.000Z</pubTime>
-        
-        <tag>RESTful</tag>
-         
-        <tag>Web</tag>
+        <tag>数据库</tag>
          
          
            
@@ -570,6 +548,28 @@
 
     
   <url>
+    <loc>https://veryjj.github.io/2018/05/18/RESTful-API%E5%91%BD%E5%90%8D%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2020-10-05T14:14:57.302Z</lastmod>
+    <data>
+        <display>
+        <title>RESTful API命名实践</title>
+        <pubTime>2018-05-18T02:29:30.000Z</pubTime>
+        
+        <tag>RESTful</tag>
+         
+        <tag>Web</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://veryjj.github.io/2018/05/06/MySQL%E7%B4%A2%E5%BC%95%E5%90%88%E5%B9%B6/</loc>
     <lastmod>2020-10-05T14:14:57.302Z</lastmod>
     <data>
@@ -577,9 +577,9 @@
         <title>MySQL索引合并</title>
         <pubTime>2018-05-06T09:55:18.000Z</pubTime>
         
-        <tag>MySQL</tag>
-         
         <tag>数据库</tag>
+         
+        <tag>MySQL</tag>
          
         <tag>索引</tag>
          
@@ -664,12 +664,12 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/04/22/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Dubbo%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E5%AD%A6/</loc>
+    <loc>https://veryjj.github.io/2018/06/02/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Consumer%E5%90%AF%E5%8A%A8/</loc>
     <lastmod>2020-10-05T14:14:57.106Z</lastmod>
     <data>
         <display>
-        <title>Dubbo源码解析-Dubbo可以这么学</title>
-        <pubTime>2018-04-22T08:23:17.000Z</pubTime>
+        <title>Dubbo源码解析-Consumer启动</title>
+        <pubTime>2018-06-02T07:06:57.000Z</pubTime>
         
         <tag>Dubbo</tag>
          
@@ -686,12 +686,12 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/06/02/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Consumer%E5%90%AF%E5%8A%A8/</loc>
+    <loc>https://veryjj.github.io/2018/04/22/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Dubbo%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E5%AD%A6/</loc>
     <lastmod>2020-10-05T14:14:57.106Z</lastmod>
     <data>
         <display>
-        <title>Dubbo源码解析-Consumer启动</title>
-        <pubTime>2018-06-02T07:06:57.000Z</pubTime>
+        <title>Dubbo源码解析-Dubbo可以这么学</title>
+        <pubTime>2018-04-22T08:23:17.000Z</pubTime>
         
         <tag>Dubbo</tag>
          
