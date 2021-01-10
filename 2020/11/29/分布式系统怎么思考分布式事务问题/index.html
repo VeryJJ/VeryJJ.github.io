@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="TfJqwSBCRD" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,事务,分布式," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="黄老师" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="分布式系统 之 分布式事务问题 1、你怎么分享分布式事务？ 分布式事务问题是分布式系统绕不开的技术话题。 “谈谈你对分布式事务的理解”、“分享下你团队在分布式事务上的解决方案”、“你用过哪几种分布式事务的中间件”？在技术交流/面试中很容易讨论到这些个话题，得到的反馈大概率是这样的：  “额~~ ~~ ~~ ~~”，一时语噻 《《《 平时没有梳理和认知分布式事物的问题，一时不知如何组织语言。 “我们">
+<meta name="keywords" content="Java,事务,分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式系统 之 分布式事务问题">
+<meta property="og:url" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/index.html">
+<meta property="og:site_name" content="黄老师">
+<meta property="og:description" content="分布式系统 之 分布式事务问题 1、你怎么分享分布式事务？ 分布式事务问题是分布式系统绕不开的技术话题。 “谈谈你对分布式事务的理解”、“分享下你团队在分布式事务上的解决方案”、“你用过哪几种分布式事务的中间件”？在技术交流/面试中很容易讨论到这些个话题，得到的反馈大概率是这样的：  “额~~ ~~ ~~ ~~”，一时语噻 《《《 平时没有梳理和认知分布式事物的问题，一时不知如何组织语言。 “我们">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/分布式事务问题.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201122212334563.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201122222103051.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201122222041382.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129164558089.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129114815853.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129164639724.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129135226697.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/TB1hSpccIVl614jSZKPXXaGjpXa-1330-924.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/TB1uM2OaSslXu8jSZFuXXXg7FXa-1330-958.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NzIxMjg3,size_16,color_FFFFFF,t_70.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NzIxMjg3,size_16,color_FFFFFF,t_70-20201129162643039.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/seata_at-1.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/seata_at-2.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/seata_at-3.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129164558089.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/seata_tcc-1.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444.png">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/a411ccaf753bdd3c91ab94fe224109044f3.jpg">
+<meta property="og:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/915a02484990dda820410c8cad2389c5386.jpg">
+<meta property="og:updated_time" content="2021-01-10T09:20:55.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式系统 之 分布式事务问题">
+<meta name="twitter:description" content="分布式系统 之 分布式事务问题 1、你怎么分享分布式事务？ 分布式事务问题是分布式系统绕不开的技术话题。 “谈谈你对分布式事务的理解”、“分享下你团队在分布式事务上的解决方案”、“你用过哪几种分布式事务的中间件”？在技术交流/面试中很容易讨论到这些个话题，得到的反馈大概率是这样的：  “额~~ ~~ ~~ ~~”，一时语噻 《《《 平时没有梳理和认知分布式事物的问题，一时不知如何组织语言。 “我们">
+<meta name="twitter:image" content="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/分布式事务问题.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/"/>
+
+
+
+
+
+  <title>分布式系统 之 分布式事务问题 | 黄老师</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-82463489-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">黄老师</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Life Note</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://veryjj.github.io/2020/11/29/分布式系统怎么思考分布式事务问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄老师">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄老师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">分布式系统 之 分布式事务问题</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-29T18:29:42+08:00">
+                2020-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/11/29/分布式系统怎么思考分布式事务问题/" class="leancloud_visitors" data-flag-title="分布式系统 之 分布式事务问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分布式系统-之-分布式事务问题"><a href="#分布式系统-之-分布式事务问题" class="headerlink" title="分布式系统 之 分布式事务问题"></a>分布式系统 之 分布式事务问题</h1><p><br></p>
+<h1 id="1、你怎么分享分布式事务？"><a href="#1、你怎么分享分布式事务？" class="headerlink" title="1、你怎么分享分布式事务？"></a>1、你怎么分享分布式事务？</h1><p><br></p>
+<p>分布式事务问题是分布式系统绕不开的技术话题。</p>
+<p>“谈谈你对分布式事务的理解”、“分享下你团队在分布式事务上的解决方案”、“你用过哪几种分布式事务的中间件”？在技术交流/面试中很容易讨论到这些个话题，得到的反馈大概率是这样的：</p>
+<ul>
+<li>“额~~ ~~ ~~ ~~”，一时语噻 《《《 平时没有梳理和认知分布式事物的问题，一时不知如何组织语言。</li>
+<li>“我们没有使用分布式事务”《《《 分布式事务裸奔状态。</li>
+<li>“我知道有CAP和BASE理论，分别是XXX意思” 《《《 “学院派”选手，不够接地气。</li>
+<li>“我们没用分布式事务，但有做补偿方案，XXX” 《《《 有意识和思考，可以。</li>
+<li>“我们在个别特殊业务上，用了XXX中间件方案” 《《《 有数据、有实践心得，可以。</li>
+<li>etc……</li>
+</ul>
+<a id="more"></a>
+<p><br></p>
+<p><strong>的确，分布式事务问题比中间件技术问题难回答的多，因为：</strong></p>
+<p><strong>1、它是一个解决方案。而不仅仅是某个功能的技术实现解答。</strong></p>
+<p><strong>2、分布式事务是一项“有损解决方案”，是一项取舍决策，背后是业务适用性。</strong></p>
+<p><strong>3、解决方案要基于业务场景，以及业务场景分析。不存在一招鲜吃遍天的最佳方案。</strong></p>
+<p><strong>3、分布式事务是个综合的技术问题，涉及：业务代码、RPC、幂等性、DB、并发处理、局部高可用、网络分区、一致性视图等问题。</strong></p>
+<p><br></p>
+<p>据笔者交流反馈的经验，在多数团队中并未落地“像样”的分布式方案。分布式事务在线上系统的应用比例是很小的。相比分布式事务的学习复杂度和实际应用概率，真有点“面试造火箭，实际拧螺丝”的感觉。</p>
+<p>但，不论线上应用比例怎样。作为对技术深度的好奇和掌握（尤其是一堆技术的协同的原理掌握），我们仍要扎实的掌握分布式事务。做到知一返三、游刃有余。</p>
+<p><br></p>
+<h1 id="2、分布式事务的本质"><a href="#2、分布式事务的本质" class="headerlink" title="2、分布式事务的本质"></a>2、分布式事务的本质</h1><p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/分布式事务问题.png" alt=""></p>
+<center>分布式事务问题</center>
+
+<p>如上图：</p>
+<ul>
+<li>分布式事务的问题/需求是随着系统分布式化后必然产生的。</li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>分布式事务的目的或<strong>本质是追求分布式的多个DB数据的一致性</strong>。</p>
+<ul>
+<li><p>和本地数据库事务的本质原理是一样的。只不过是放大到一套技术栈中去实现，更多考虑因素和复杂度。</p>
+</li>
+<li><p>（以Mysql为例）<strong>本地数据库事务原理</strong>：undo log（原子性） + redo log（持久性） + 数据库锁（原子性&amp;隔离性） + MVCC（隔离性）</p>
+</li>
+<li><p><strong>分布式事务原理</strong>：全局事务协调器（原子性） + 全局锁（隔离性） + DB本地事务（原子性、持久性）</p>
+</li>
+<li><blockquote>
+<p>注，“一致性” 靠 “原子性 + 持久性 + 隔离性” 三者共同完成</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li>分布式多个DB数据变更的一致性不是瞬间一致，而是会经历一个过程。<ul>
+<li>需要考虑期间DB数据可见性和隔离性问题。</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>问题：</p>
+<p>1、分布式系统中，日常研发线上发版，需要考虑分布式事务问题吗？如果要考虑，怎么应对？</p>
+<p>2、分布式事务相关的技术问题：RPC、幂等性、DB、并发处理、局部高可用、网络分区、一致性视图等，胸有成竹吗？</p>
+<p><br></p>
+<h1 id="3、CAP原则和BASE理论"><a href="#3、CAP原则和BASE理论" class="headerlink" title="3、CAP原则和BASE理论"></a>3、CAP原则和BASE理论</h1><blockquote>
+<p>下文并不会基于这两理论分解，毕竟是理论，不能解决实际的问题</p>
+<p>但理论知识还是需要了解一些的。故，快速浏览下。</p>
+</blockquote>
+<p><br></p>
+<h2 id="3-1、CAP原则"><a href="#3-1、CAP原则" class="headerlink" title="3.1、CAP原则"></a>3.1、CAP原则</h2><p><strong>CAP原则：</strong></p>
+<p>一个分布式系统最多只能同时满足一致性（Consistency）、可用性（Availability）和分区容错性（Partition tolerance）中的两项。</p>
+<p><br></p>
+<ul>
+<li><p><strong>一致性（Consistency）</strong>：一致性指“all nodes see the same data at the same time”，即<strong>更新操作</strong>成功并返回客户端<strong>完成后</strong>，所有节点在同一时间的数据完全一致。</p>
+</li>
+<li><p><strong>可用性（Availability）</strong>：可用性指“Reads and writes always succeed”，即服务一直可用，而且是正常响应时间。</p>
+</li>
+<li><p><strong>分区容错性（Partition tolerance）</strong>：分区容错性指“the system continues to operate despite arbitrary message loss or failure of part of the system”，即分布式系统在遇到某节点或网络分区故障的时候，仍然能够对外提供满足一致性和可用性的服务。</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>CAP的取舍策略：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">策略</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CA</td>
+<td>单点集群，满足一致性，可用性的系统，通常可扩展性较差。例如传统的单机数据库。<br>特点：故障时完全不可用。</td>
+</tr>
+<tr>
+<td style="text-align:center">【常选】AP</td>
+<td>满足可用性，分区容错的系统，对一致性要求低一些，是很多分布式系统设计时的选择。<br>       例如：Redis，HBase，Eureka。<br>       例如：各云厂商的SLA几个9，也是牺牲了强一致性。</td>
+</tr>
+<tr>
+<td style="text-align:center">CP</td>
+<td>满足一致性，分区容错的系统，通常性能不是特别高<br>        例如：Zookeeper（通过ZAB协议达到强一致性）</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="3-2、BASE理论"><a href="#3-2、BASE理论" class="headerlink" title="3.2、BASE理论"></a>3.2、BASE理论</h2><p>BASE理论是对CAP理论的延伸，<strong>对AP的细化</strong>。</p>
+<p>核心思想是“即使无法做到强一致性，但应可以采用适合的方式达到最终一致性”。</p>
+<p><strong>BASE</strong>是指：基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。</p>
+<p> <br></p>
+<ul>
+<li><p><strong>基本可用（Basically Available）</strong></p>
+<ul>
+<li>基本可用是指分布式系统在出现故障时，为保证核心可用，允许损失部分可用性。</li>
+<li>例如：电商大促时，为了应对访问量激增，部分用户可能会被引导到降级页面，服务层也可能只提供降级服务。</li>
+</ul>
+</li>
+<li><p><strong>软状态（ Soft State）</strong></p>
+<ul>
+<li>软状态是指允许系统存在中间状态，而该中间状态不会影响系统整体可用性。</li>
+<li>例如：分布式存储中一般一份数据至少会有三个副本，允许不同节点间副本同步的延时就是软状态的体现。mysql replication的异步复制也是一种体现。</li>
+</ul>
+</li>
+<li><p><strong>最终一致性（ Eventual Consistency）</strong></p>
+<ul>
+<li>最终一致性是指系统中的所有数据副本经过一定时间后，最终能够达到一致的状态。</li>
+<li>最终一致性是弱一致性的一种特殊情况。</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="3-3、为什么分布式系统倾向BASE理论的架构"><a href="#3-3、为什么分布式系统倾向BASE理论的架构" class="headerlink" title="3.3、为什么分布式系统倾向BASE理论的架构"></a><strong>3.3、为什么分布式系统倾向BASE理论的架构</strong></h2><p>实际性问题：</p>
+<ul>
+<li>工程师可以做到逻辑严密的代码，但无法确保硬件长期100%可用。</li>
+<li>在大型分布式系统中，通信异常、网络分区、节点故障、磁盘损坏、机房掉电等等硬件问题随时都可能发生。</li>
+</ul>
+<p><br></p>
+<p>在商业中，越是大型的公司越是需要在线服务能力强的大型分布式系统，在线可用性和响应能力是大型公司的生命支柱（很多线上一次大故障毁掉一个公司的案例）【基本已排除CA和CP】。</p>
+<p>且，数据最终一致的特点留给架构很多发挥的余地。即使是关键异常，也可以通过补偿的方式或人工的方式处理。</p>
+<p><br></p>
+<h1 id="4、技术方案汇总"><a href="#4、技术方案汇总" class="headerlink" title="4、技术方案汇总"></a>4、技术方案汇总</h1><h2 id="4-1、按方案本质分类"><a href="#4-1、按方案本质分类" class="headerlink" title="4.1、按方案本质分类"></a>4.1、按方案本质分类</h2><p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201122212334563.png" alt="image-20201122212334563"></p>
+<blockquote>
+<ul>
+<li>阿里Seata：<a href="http://seata.io/zh-cn/" target="_blank" rel="noopener">http://seata.io/zh-cn/</a></li>
+<li>Hmily：<a href="https://github.com/dromara/hmily" target="_blank" rel="noopener">https://github.com/dromara/hmily</a></li>
+</ul>
+</blockquote>
+<p><br></p>
+<h2 id="4-2、怎么选"><a href="#4-2、怎么选" class="headerlink" title="4.2、怎么选"></a>4.2、怎么选</h2><blockquote>
+<p>仅提供数据参考</p>
+</blockquote>
+<p><strong>一、一般业务都倾向选最终一致性</strong></p>
+<ul>
+<li><p>绝大部分使用“自研补偿/MQ方案 + 人工介入”。</p>
+<ul>
+<li><p>选型取向：</p>
+<ul>
+<li>方案最“轻”，可掌控性好。</li>
+<li>方案简单易懂，团队易接受、易维护。</li>
+<li>性能损失最少。</li>
+</ul>
+</li>
+<li><blockquote>
+<p>笔者也赞同一般团队选型此方式。毕竟分布式事务问题是小概率事件，留有补救余地就行，性能的损失可是实打实的反应在线上每一个请求上。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>二、阿里Seata AT模式，平均性能会降低35%以上</strong></p>
+<ul>
+<li>笔者团队的业务实测</li>
+<li>大家可以根据Seata AT模式下额外做的事情来感受</li>
+</ul>
+<p><br></p>
+<p><strong>三、RocketMQ事务消息</strong></p>
+<ul>
+<li>听起来挺好挺简单的方案，但它比较挑业务场景，同步性强的处理链路不适合。</li>
+<li>【重要】要求下游MQ消费方一定能成功消费消息。否则转人工介入处理。</li>
+<li>【重要】千万记得实现幂等性。</li>
+<li>RocketMQ 3.0.8版本前，或RocketMQ 4.3.0后 支持事务消息，中间版本事务消息被干掉过。</li>
+</ul>
+<p><br></p>
+<h1 id="5、技术方案介绍"><a href="#5、技术方案介绍" class="headerlink" title="5、技术方案介绍"></a>5、技术方案介绍</h1><h2 id="5-1、【原理】2PC-（理论基石）"><a href="#5-1、【原理】2PC-（理论基石）" class="headerlink" title="5.1、【原理】2PC  （理论基石）"></a>5.1、【原理】2PC  （理论基石）</h2><p>两阶段提交（Two-phase Commit，2PC）</p>
+<p><br></p>
+<p><strong>5.1.1、运行原理</strong></p>
+<p>2PC通过引入协调者（Coordinator）来协调分布式事务参与者的行为，并最终决定这些参与者是否要真正执行事务。</p>
+<p>2PC 把事务的执行分为两个阶段：</p>
+<ul>
+<li>第一阶段 prepare 阶段：这个阶段实际上就是参与者对事务的投票阶段，协调者向所有参与者确认是否可以共同提交？</li>
+<li>第二阶段 commit阶段：只有第一阶段所有参与者都回答yes，协调者才会向所有参与者发起commit指令共同提交事务。否则向所有参与者发送abort指令共同中止事务。用以保证事务达到一致性。</li>
+</ul>
+<p><br><br>【特别强调】2PC是方案原理，不是落地型方案。2PC几乎是所有分布式事务方案的基础，各分布式事务方案几乎都由此改进而来。</p>
+<p><br></p>
+<p><strong>一阶段：准备阶段</strong></p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201122222103051.png" alt="image-20201122222103051"></p>
+<center>一阶段：准备阶段</center>
+
+<ul>
+<li>协调者询问参与者事务是否执行成功，参与者发回事务执行结果。</li>
+</ul>
+<p><br></p>
+<p><strong>二阶段：提交阶段</strong></p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201122222041382.png" alt="image-20201122222041382"></p>
+<center>二阶段：提交阶段</center>
+
+<ul>
+<li><p>如果事务在每个参与者上都执行成功，事务协调者发送通知让参与者提交事务；否则，协调者发送通知让参与者回滚事务。</p>
+</li>
+<li><p><em>【注意】</em>需要注意的是，在准备阶段，参与者在DB层<strong>只执行了事务，未提交事务</strong>。只有在提交阶段接收到协调者发来的通知后，才进行提交或者回滚。</p>
+</li>
+</ul>
+<p><br></p>
+<p><strong>5.1.2、方案背后的隐性要求</strong></p>
+<p>1、需要实现一个全局协调器。引发考虑全局协调器自身的可用性问题。</p>
+<p>2、应用需配合协调者要求，实现多个接口。</p>
+<p>3、需要将DB层面的事务commit分离（需要DB支持）。拖长的一致性过程，对并发情况采取的应对策略（一般往往是同步阻塞）。</p>
+<p>4、假设阶段二的commit/rollback肯定执行成功，故二阶段的实现不能复杂。且，一旦出错就人工介入。</p>
+<p><br></p>
+<p><strong>5.1.3、存在的问题</strong></p>
+<p>1、同步阻塞：所有事务参与者在等待其它参与者响应的时候都处于同步阻塞状态，阻塞级别（应用级、表级、数据行级）视实现方案。</p>
+<p>2、单点问题：协调者发生故障将会造成很大影响。特别是在阶段二发生故障，所有参与者会一直等待状态，无法完成其它操作。</p>
+<p>3、<em>数据不一致</em>：在阶段二，如果协调者只发送了部分 Commit 消息，<strong>此时网络发生异常</strong>，那么只有部分参与者接收到 Commit 消息，也就是说只有部分参与者提交了事务，使得系统数据不一致。抑或协调者发送的commit消息到达参会与者的速度不一样，抑或参与者处理commit消息的调度及时性不一样，都会出现全局数据不一致的一个时间窗口。</p>
+<p>4、太过保守： 任意一个节点失败就会导致整个事务失败，没有完善的容错机制。</p>
+<p><br></p>
+<h2 id="5-2、【原理】TCC-（补偿型）"><a href="#5-2、【原理】TCC-（补偿型）" class="headerlink" title="5.2、【原理】TCC  （补偿型）"></a>5.2、【原理】TCC  （补偿型）</h2><p>TCC 本质上也是一个2PC型原理，但其属于“补偿型” “柔性事务”方案。是最常用的分布式事务的思路。</p>
+<p><br></p>
+<p>理解TCC，重要的是去理解“补偿型”方案的思路。基于“补偿型”思路在实际业务场景中灵活应变。</p>
+<p><br></p>
+<p>故，要往补偿型方案上去理解，勿死记硬背！</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129164558089.png" alt="image-20201129164558089"></p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129114815853.png" alt="image-20201129114815853"></p>
+<p><br></p>
+<p><strong>【敲黑板】TCC特点：</strong></p>
+<ul>
+<li>TCC是属于BASE理论的柔性事务。是最终一致性的做法。</li>
+<li>（相较于资源层DB）TCC工作于业务逻辑层，属业务逻辑层的2PC。实现：Try、Confirm、Cancel三个方法（Cancel是取消Try）。</li>
+<li>TCC每一个接口在返回时都是直接提交本地事务的。故，TCC是牺牲了一定的隔离性和全局一致性。</li>
+<li>TCC也有事务管理器（Coordinator 事务协调者）。事务管理器要记录分布式事务活动日志，用于事务管理器重启后的恢复。</li>
+<li>标准的TCC，数据设计上需要支持中间态（配合try + confirm）。变种的TCC，也可以一步到位。</li>
+</ul>
+<p><br></p>
+<p><strong>TCC的状态推进逻辑：</strong></p>
+<p>1、Try阶段：如果有1个Try失败。则发起全局Cancel。</p>
+<p>2、Confirm阶段：假设必须成功。若有个别应用Confirm失败，则由事务管理器进行重试。若重试无效，则人工介入。</p>
+<p>3、Cancel阶段：也是假设必须成功。Cancel失败的基本都转人工。</p>
+<p><br></p>
+<p><strong>TCC实现注意点：</strong></p>
+<p>1、<strong>实现幂等</strong>：因为网络调用无法保证请求一定能到达，所以都会有重调机制，因此对于 Try、Confirm、Cancel 三个方法都需要幂等实现，避免重复执行产生错误。</p>
+<p>2、<strong>空回滚问题</strong>：指由于网络问题，Try 方法没收到，超时了。此时事务管理器就会发出 Cancel 命令，那么需要支持 Cancel 在未执行 Try 的情况下能正常的 Cancel。</p>
+<p>3、<strong>考虑单应用多实例架构</strong>：在单应用多实例的架构下，TCC的协调者需要保证一个事务的Try、Confirm、Cancel操作在同一个实例上。</p>
+<ul>
+<li><strong>应对方案一</strong>、单应用多实例间，针对业务数据做分布式锁。</li>
+<li><strong>应对方案二</strong>、<strong>放任其并发</strong>。前提是单应用级多实例架构自身能保证业务的负载均衡后的并发原子性，例如：请求负载均衡到多台机器实例进行库存操作，常见方案有：分布式锁、DB乐观锁等。因为TCC的Try会检查并锁定资源，如果遇到冲突，那么检测到冲突，Try失败的分布式事务者进行Cancel回滚。</li>
+</ul>
+<p>4、<strong>防悬挂</strong>：（尤其是异步方式的TCC）是指 Try 方法由于网络阻塞，超时触发了事务管理器发出了 Cancel 命令， 但是执行了 Cancel 命令之后 Try 请求到了。</p>
+<p><br></p>
+<p><strong>TCC应用的难度不在于实现三个方法</strong>，<u>在于结合具体TCC工具选型和技术架构下的逻辑严密性</u>，常思考几个问题：</p>
+<ul>
+<li>这个请求失败了怎么办？</li>
+<li>方案执行TimeOut了怎么办？</li>
+<li>任何时候，网络抖动了怎么办？</li>
+<li>网络异常分区了，会造成什么问题？</li>
+<li>TCC的事务管理器异常了怎么办？</li>
+<li>执行TCC的应用程序异常了怎么办？</li>
+<li>如何优雅的事务平滑的更新线上版本？</li>
+<li>……等等</li>
+</ul>
+<p><br></p>
+<blockquote>
+<p>国内开源的<strong>ByteTCC、hmily、tcc-transaction</strong></p>
+</blockquote>
+<p><br></p>
+<p><strong><em>TCC的缺点：</em></strong></p>
+<ul>
+<li>在业务层面，完全手写回滚逻辑或者是补偿逻辑，实在太恶心了。且，这块业务代码很难维护，很容易纰漏。</li>
+</ul>
+<p><br></p>
+<p><strong>因地制宜，这些也是TCC思路：</strong></p>
+<ul>
+<li><strong>一、没有Try的TCC</strong></li>
+</ul>
+<p>例如，购买联程机票，换乘的又是不同的航空公司。比如从 A 飞到 B，再从 B 飞到 C，只有 A - B 和 B - C 都买到票了才有意义。</p>
+<p>但有可能受限于各航空公司未必都实现TCC的接口，故为了方案的通用性，会做方案降级应对。这时候的选择就不 Try 了，直接调用航空公司的买票操作，当两个航空公司都买成功了那就直接成功了，如果某个公司买失败了，那就需要调用取消订票接口。</p>
+<p>也就是在第一阶段直接就执行完整个业务操作了，所以要重点关注回滚操作，如果回滚失败得有提醒，需要人工介入等。</p>
+<blockquote>
+<p>类SAGA的方案哦</p>
+</blockquote>
+<p><br></p>
+<ul>
+<li><p><strong>二、异步方式的TCC</strong></p>
+<p>TCC 异步其实也是一种折衷。</p>
+</li>
+</ul>
+<p>比如某些服务很难改造，但又<strong>不会影响主业务决策</strong>，也就是它不那么需要即时执行。这时候可以引入可靠消息服务，通过消息服务来替代个别服务来进行 Try、Confirm、Cancel 。</p>
+<p>Try 的时候只是写入消息，消息还不能被消费，Confirm 就是真正发消息的操作，Cancel 就是取消消息的发送。</p>
+<p>是不是有点耳熟？对！就是RocketMQ。</p>
+<blockquote>
+<p>事务消息的方案哦</p>
+</blockquote>
+<p><br></p>
+<h2 id="5-3、【原理】-XA-（取决于数据库）"><a href="#5-3、【原理】-XA-（取决于数据库）" class="headerlink" title="5.3、【原理】 XA （取决于数据库）"></a>5.3、【原理】 XA （取决于数据库）</h2><p>XA规范 是 X/Open 组织定义的分布式事务处理（DTP，Distributed Transaction Processing）标准。</p>
+<p>XA 规范 描述了全局的事务管理器与局部的资源管理器之间的接口。 XA规范 的目的是允许的多个资源（如数据库，应用服务器，消息队列等）在同一事务中访问，这样可以使 ACID 属性跨越应用程序而保持有效。</p>
+<p><br></p>
+<p>XA中大致分为两部分：事务管理器和本地资源管理器。</p>
+<ul>
+<li>本地资源管理器：往往由数据库实现，比如Oracle、DB2这些商业数据库都实现了XA接口。</li>
+<li>事务管理器：作为全局的调度者，负责各个本地资源的提交和回滚。</li>
+</ul>
+<p>XA 规范 使用两阶段提交（2PC，Two-Phase Commit）来保证所有资源同时提交或回滚任何特定的事务</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129164639724.png" alt="image-20201129164639724"></p>
+<p><br></p>
+<p>XA实现分布式事务的原理如下：</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129135226697.png" alt="image-20201129135226697"></p>
+<p><br></p>
+<blockquote>
+<p>看，背后还是2PC的原理。</p>
+</blockquote>
+<p><br></p>
+<p>总的来说，XA协议比较简单，而且一旦商业数据库实现了XA协议，使用分布式事务的成本也比较低。</p>
+<p>但是，<em>XA也有致命的缺点，那就是性能不理想</em>，特别是在交易下单链路，并发量高，<em>XA无法满足高并发场景</em>。</p>
+<p><br></p>
+<p>XA目前在商业数据库支持的比较理想，在mysql数据库中支持的不太理想，mysql的XA实现，没有记录prepare阶段日志，主备切换回导致主库与备库数据不一致。</p>
+<p><br></p>
+<p>至于实战经验/代码demo，笔者也没使用过。此章节略带“键盘侠”的感觉。</p>
+<p>带XA能力的框架：Seata。</p>
+<p><br></p>
+<h2 id="5-4、【框架】Seata-（多种模式可选）"><a href="#5-4、【框架】Seata-（多种模式可选）" class="headerlink" title="5.4、【框架】Seata  （多种模式可选）"></a>5.4、【框架】Seata  （多种模式可选）</h2><p><a href="http://seata.io/zh-cn/index.html" target="_blank" rel="noopener">http://seata.io/zh-cn/index.html</a></p>
+<p><br></p>
+<h3 id="5-4-1、XA模式-（阻塞大，性能低）"><a href="#5-4-1、XA模式-（阻塞大，性能低）" class="headerlink" title="5.4.1、XA模式   （阻塞大，性能低）"></a>5.4.1、XA模式   （阻塞大，性能低）</h3><p><strong>前提：</strong></p>
+<ul>
+<li><u>支持XA 事务的数据库</u>。（Mysql就不行罗）</li>
+<li>Java 应用，通过 JDBC 访问数据库。</li>
+</ul>
+<p><br></p>
+<p><strong>整体机制：</strong></p>
+<p>在 Seata 定义的分布式事务框架内，利用事务资源（数据库、消息服务等）对 XA 协议的支持，以 XA 协议的机制来管理分支事务的一种 事务模式。</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/TB1hSpccIVl614jSZKPXXaGjpXa-1330-924.png" alt="img"></p>
+<ul>
+<li>一、执行阶段：<ul>
+<li>可回滚：业务 SQL 操作放在 XA 分支中进行，由数据库对 XA 协议的支持来保证 <em>可回滚</em></li>
+<li>持久化：XA 分支完成后，执行 XA prepare，同样，由数据库对 XA 协议的支持来保证 <em>持久化</em>（即，之后任何意外都不会造成无法回滚的情况）</li>
+</ul>
+</li>
+<li>二、完成阶段：<ul>
+<li>分支提交：执行 XA 分支的 commit</li>
+<li>分支回滚：执行 XA 分支的 rollback</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p><strong>工作机制：</strong></p>
+<ol>
+<li>整体运行机制</li>
+</ol>
+<p>XA 模式 运行在 Seata 定义的事务框架内：</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/TB1uM2OaSslXu8jSZFuXXXg7FXa-1330-958.png" alt="xa-fw"></p>
+<ul>
+<li>执行阶段（E xecute）：XA start/XA end/XA prepare + SQL + 注册分支</li>
+<li>完成阶段（F inish）：XA commit/XA rollback</li>
+</ul>
+<p><br></p>
+<ol>
+<li>数据源代理</li>
+</ol>
+<p>XA 模式需要 XA Connection。</p>
+<p>获取 XA Connection 两种方式：</p>
+<ul>
+<li>方式一：要求开发者配置 XADataSource</li>
+<li>方式二：根据开发者的普通 DataSource 来创建</li>
+</ul>
+<p>第一种方式，给开发者增加了认知负担，需要为 XA 模式专门去学习和使用 XA 数据源，与 透明化 XA 编程模型的设计目标相违背。</p>
+<p>第二种方式，对开发者比较友好，和 AT 模式使用一样，开发者完全不必关心 XA 层面的任何问题，保持本地编程模型即可。</p>
+<p><br></p>
+<p>虽然第二种方式对使用者更友好，但仍优先推荐第一种自实现的方式：</p>
+<p>为什么？</p>
+<p>关于第二种方式，其实是Seata来开发XA Connection，这种方法是在做数据库驱动程序要做的事情。不同的厂商、不同版本的数据库驱动实现机制是厂商私有的，Seata只保证在充分测试过的驱动程序上是正确的（无法针对使用者各色各样的驱动版本给出通用版本），开发者使用的<strong>驱动程序版本差异</strong>很可能造成机制的失效。这点在 Oracle 上体现非常明显。参见 Druid issue：<a href="https://github.com/alibaba/druid/issues/3707" target="_blank" rel="noopener">https://github.com/alibaba/druid/issues/3707</a>  。</p>
+<p><br></p>
+<ol>
+<li>分支注册</li>
+</ol>
+<p>XA start 需要 Xid 参数。</p>
+<p>这个 Xid 需要和 Seata 全局事务的 XID 和 BranchId 关联起来，以便由 TC 驱动 XA 分支的提交或回滚。</p>
+<p>目前 Seata 的 BranchId 是在分支注册过程，由 TC 统一生成的，所以 <strong>XA 模式分支注册的时机需要在 XA start 之前</strong>。</p>
+<p><br></p>
+<p><strong>XA 模式的使用</strong></p>
+<p>可以参考 Seata 官网的样例：<a href="https://github.com/seata/seata-samples/tree/master/seata-xa" target="_blank" rel="noopener">https://github.com/seata/seata-samples/tree/master/seata-xa</a></p>
+<p>样例场景是 Seata 经典的，涉及库存、订单、账户 3 个微服务的商品订购业务。</p>
+<p><br></p>
+<h3 id="5-4-2、AT模式-（折中的优选）"><a href="#5-4-2、AT模式-（折中的优选）" class="headerlink" title="5.4.2、AT模式 （折中的优选）"></a>5.4.2、AT模式 （折中的优选）</h3><p>复习下Seata XA模式下的不足：</p>
+<ol>
+<li>需要数据库支持XA协议。Mysql没戏。</li>
+<li>阻塞大，性能低。</li>
+</ol>
+<p><br></p>
+<p>然后，Seata AT模式就是Seata XA模式的演化版本，优化了Seata XA模式下的2个不足。更灵活、性能有所提升（不绝对，建议实测比较）。</p>
+<p><br></p>
+<p><strong>前提：</strong></p>
+<ul>
+<li>基于支持本地 ACID 事务的关系型数据库。</li>
+<li>Java 应用，通过 JDBC 访问数据库。</li>
+</ul>
+<p><br></p>
+<p><strong>整体改进原理：</strong></p>
+<p>1、【自动代理，插入逻辑】【低入侵】自动代理应用层的数据源，拦截并插入Seata的操作和逻辑。</p>
+<p>2、【应用层XA Prepare】【灵活】在应用层实现 XA Prepare部分，大大提升适用面和灵活性。实际实现上，通过对数据源做代理，以此拦截应用的事务SQL，进而反向解析出undo sql log（供于rollback）。</p>
+<p>3、【行级-全局锁】【隔离性&amp;性能】在全局TC上实现行级全局锁。全局事务在执行期间，需要先拿到全局锁，才能处理临界区逻辑。以此达到全局的读写隔离。</p>
+<blockquote>
+<p>代码层面参照Seata-Sample，最大特点是在事务入口打上@GlobalTransactional的代理注解，让Seata能干预SQL的执行。</p>
+</blockquote>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NzIxMjg3,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述"></p>
+<p><br></p>
+<p>基本概念：</p>
+<ul>
+<li><strong>TC（Transaction Coordinator） -  事务协调者</strong>：维护全局事务和分支事务的状态，驱动全局事务提交或回滚。</li>
+<li><strong>TM（Transaction Manager）      - 事务管理器</strong>：定义全局事务的范围</li>
+<li><strong>RM（Resource Manager）         - 资源管理器</strong> ：管理分支事务处理的资源，与TC通信注册/报告分支事务状态，并驱动分支事务的提交或回滚。</li>
+</ul>
+<p>两阶段提交：</p>
+<ul>
+<li>一阶段：业务数据和<u>回滚日志记录</u>在同一个本地<strong>事务中提交</strong>，释放本地锁和连接资源。</li>
+<li>二阶段：提交异步化，非常快速地完成   或   回滚通过一阶段的回滚日志进行反向补偿。</li>
+</ul>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM1NzIxMjg3,size_16,color_FFFFFF,t_70-20201129162643039.png" alt="img"></p>
+<p><br></p>
+<p><strong>写隔离：</strong></p>
+<ul>
+<li>一阶段本地事务提交前，需要确保先拿到 <strong>全局锁（数据行级）</strong> 。而全局锁的实现，在TC端。带来的优点：全局解锁就在一瞬间。</li>
+<li>拿不到 <strong>全局锁</strong> ，不能提交本地事务。</li>
+<li>拿 <strong>全局锁</strong> 的尝试被限制在一定范围内，超出范围将放弃，并回滚本地事务，释放本地锁。</li>
+</ul>
+<p><br></p>
+<p>示例：</p>
+<p>两个全局事务 tx1 和 tx2，分别对 a 表的 m 字段进行更新操作，m 的初始值 1000。</p>
+<ul>
+<li><p>tx1 先开始，开启本地事务，拿到本地锁，更新操作 m = 1000 - 100 = 900。本地事务提交前，<u>先拿到该记录的 <strong>全局锁</strong></u> ，本地提交释放本地锁。 </p>
+</li>
+<li><p>tx2 后开始，开启本地事务，拿到本地锁，更新操作 m = 900 - 100 = 800。本地事务提交前，<em>尝试拿该记录的 <strong>全局锁</strong></em> ，tx1 全局提交前，该记录的全局锁被 tx1 持有，tx2 需要<em>重试等待</em> <strong>全局锁</strong> 。</p>
+</li>
+</ul>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/seata_at-1.png" alt="Write-Isolation: Commit"></p>
+<ul>
+<li>tx1 二阶段全局提交，释放 <strong>全局锁</strong> 。tx2 拿到 <strong>全局锁</strong> 提交本地事务。</li>
+</ul>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/seata_at-2.png" alt="Write-Isolation: Rollback"></p>
+<p>如果回滚：</p>
+<p>如果 tx1 的二阶段全局回滚，则 tx1 需要重新获取该数据的本地锁，进行反向补偿的更新操作，实现分支的回滚。</p>
+<p>此时，如果 tx2 仍在等待该数据的 <strong>全局锁</strong>，同时持有本地锁，则 tx1 的分支回滚会失败。分支的回滚会一直重试，直到 tx2 的 <strong>全局锁</strong> 等锁超时，放弃 <strong>全局锁</strong> 并回滚本地事务释放本地锁，tx1 的分支回滚最终成功。</p>
+<p><br></p>
+<p>因为整个过程 <strong>全局锁</strong> 在 tx1 结束前一直是被 tx1 持有的，所以不会发生 <strong>脏写</strong> 的问题。</p>
+<p><br></p>
+<p><strong>读隔离：</strong></p>
+<p>在数据库本地事务隔离级别 <strong>读已提交（Read Committed）</strong> 或以上的基础上，Seata（AT 模式）的默认全局隔离级别是 <strong>读未提交（Read Uncommitted）</strong> 。</p>
+<p>如果应用在特定场景下，必需要求全局的 <strong>读已提交</strong> ，目前 Seata 的方式是通过 SELECT FOR UPDATE 语句的代理。</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/seata_at-3.png" alt="Read Isolation: SELECT FOR UPDATE"></p>
+<p><em>SELECT FOR UPDATE 语句的执行会申请 <strong>全局锁</strong>（并发阻塞的代价点）</em> ，如果 <strong>全局锁</strong> 被其他事务持有，则释放本地锁（回滚 SELECT FOR UPDATE 语句的本地执行）并重试。这个过程中，查询是被 block 住的，直到 <strong>全局锁</strong> 拿到，即读取的相关数据是 <strong>已提交</strong> 的，才返回。</p>
+<p><br></p>
+<p>出于总体性能上的考虑，Seata 目前的方案并<u>没有对所有 SELECT 语句都进行代理</u>，仅针对 FOR UPDATE 的 SELECT 语句。</p>
+<p><br></p>
+<p><strong>回滚日志表：</strong></p>
+<p>AT模式的特点是通过代理数据源，从而能拦截SQL，并生成undo sql。这个特点在实际实战中要引起注意，要实测真实业务sql的undo sql生成正确性（担心Seata AT模式对于复杂更新sql 的解析能力）。</p>
+<p><br></p>
+<p>注，UNDO_LOG Table 一定要创建哦。</p>
+<p> MySQL 为例：</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>branch_id</td>
+<td>bigint PK</td>
+</tr>
+<tr>
+<td>xid</td>
+<td>varchar(100)</td>
+</tr>
+<tr>
+<td>context</td>
+<td>varchar(128)</td>
+</tr>
+<tr>
+<td>rollback_info</td>
+<td>longblob</td>
+</tr>
+<tr>
+<td>log_status</td>
+<td>tinyint</td>
+</tr>
+<tr>
+<td>log_created</td>
+<td>datetime</td>
+</tr>
+<tr>
+<td>log_modified</td>
+<td>datetime</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 注意此处0.7.0+ 增加字段 context</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`undo_log`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  <span class="string">`branch_id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`xid`</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`context`</span> <span class="built_in">varchar</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`rollback_info`</span> longblob <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`log_status`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`log_created`</span> datetime <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`log_modified`</span> datetime <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">  <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`ux_undo_log`</span> (<span class="string">`xid`</span>,<span class="string">`branch_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<p><strong>AT模式的缺点：</strong></p>
+<p><strong>1、性能损耗：</strong></p>
+<ul>
+<li>还是业务上明显感知的。</li>
+<li>一条Update SQL，需要获取全局事务XID（与TC通信）、before image（解析SQL，查询一次数据库）、after image（查询一次数据库）、insert undo log（写一次数据库）、before commit（与TC通信，判断锁冲突/获取锁），这些操作都需要一次次的远程通信RPC，而且是同步的。</li>
+<li>另外，undo log写入时blob字段的插入信息也是不高的。</li>
+<li>每条写SQL都会增加这么多开销，粗略估计会增加5倍的响应时间。</li>
+<li>笔者平台线上业务实测，Seata AT模式后，所及业务功能点整体性能下降35%。</li>
+</ul>
+<p><strong>2、特别注意应对：补偿型方式的通病：</strong></p>
+<ul>
+<li><p>Seata已经支持的AT、TCC、SAGA都是补偿型的。</p>
+</li>
+<li><p>补偿型事务处理机制构建在事务资源之上，事务资源本身对分布式事务是无感知的。无法做到真正的全局一致性。</p>
+<ul>
+<li><blockquote>
+<p>比如，一条库存记录处在补偿型事务处理过程中由100扣减为50。此时，仓库管理员链接数据库查询统计库存，查到了50。然后因事务回滚，库存由50补偿变回100。显然，仓库管理员查询统计到的50就是脏数据。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>AT的锁能解决部分这类问题，故，实际应用时一定要仔细分析并发读写场景特点，做最小代价的应对方案。</p>
+</li>
+</ul>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/image-20201129164558089.png" alt="image-20201129164558089"></p>
+<p><br></p>
+<h3 id="5-4-3、TCC模式-（提供框架）"><a href="#5-4-3、TCC模式-（提供框架）" class="headerlink" title="5.4.3、TCC模式  （提供框架）"></a>5.4.3、TCC模式  （提供框架）</h3><p>关于原理，《5.2、TCC》章节后，此处不再详述。</p>
+<p>但，在实际应用中务必记得考虑TCC模式下各种情况的应对。见《5.2、TCC》章节。</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/seata_tcc-1.png" alt="Overview of a global transaction"></p>
+<center>Seata TCC模式的执行流程原理图</center>
+
+<p>根据两阶段行为模式的不同，将分支事务划分为 <strong>Automatic (Branch) Transaction Mode</strong> 和 <strong>TCC (Branch) Transaction Mode</strong>.</p>
+<ul>
+<li><p>Automatic模式 基于支持本地 ACID 事务的关系型数据库（<u>即Seata AT模式</u>）：</p>
+<ul>
+<li>一阶段 prepare 行为：在本地事务中，一并提交业务数据更新和相应回滚日志记录。</li>
+<li>二阶段 commit 行为：马上成功结束，自动异步批量清理回滚日志。</li>
+<li>二阶段 rollback 行为：通过回滚日志，自动生成补偿操作，完成数据回滚。</li>
+</ul>
+</li>
+<li><p><strong>TCC 模式，不依赖于底层数据资源的事务支持：</strong></p>
+<ul>
+<li>一阶段 prepare 行为：调用 <strong>自定义</strong> 的 prepare 逻辑。</li>
+<li>二阶段 commit 行为：调用 <strong>自定义</strong> 的 commit 逻辑。</li>
+<li>二阶段 rollback 行为：调用 <strong>自定义</strong> 的 rollback 逻辑。</li>
+</ul>
+</li>
+</ul>
+<p>所谓 TCC 模式，是指支持把 <strong>自定义</strong> 的分支事务纳入到全局事务的管理中。</p>
+<p><br></p>
+<h3 id="5-4-4、Saga模式-（多系统集成）"><a href="#5-4-4、Saga模式-（多系统集成）" class="headerlink" title="5.4.4、Saga模式  （多系统集成）"></a>5.4.4、Saga模式  （多系统集成）</h3><p><strong>概述：</strong></p>
+<p>Saga模式是Seata提供的长事务解决方案。</p>
+<p>事务长不长不知道，但Saga有它存在的意义和只有它能解决的场景。</p>
+<p><br></p>
+<p>在Saga模式中，业务流程中每个参与者都提交本地事务，当出现某一个参与者失败则补偿前面已经成功的参与者，一阶段正向服务和二阶段补偿服务都由业务开发实现。</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444.png" alt="Saga模式示意图"></p>
+<p><br></p>
+<p><strong>适用场景：</strong></p>
+<ul>
+<li>参与者包含其它公司或遗留系统服务，无法提供 TCC 模式要求的三个接口</li>
+<li>业务流程长、业务流程多</li>
+</ul>
+<p><strong>优势：</strong></p>
+<ul>
+<li>一阶段提交本地事务，无锁，高性能</li>
+<li>事件驱动架构，参与者可异步执行，高吞吐</li>
+<li>补偿服务易于实现</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>不保证隔离性</li>
+</ul>
+<p><br></p>
+<p><strong>需要注意的是：</strong></p>
+<ul>
+<li>虽然没体现，但Seata Saga模式的背后，仍旧是对Seata框架和Saga事务管理器的依赖。</li>
+</ul>
+<p>更多了解详见：</p>
+<ul>
+<li>Seata 官网：<a href="http://seata.io/zh-cn/docs/user/saga.html" target="_blank" rel="noopener">http://seata.io/zh-cn/docs/user/saga.html</a></li>
+<li>Seata 样例：<a href="https://github.com/seata/seata-samples/" target="_blank" rel="noopener">https://github.com/seata/seata-samples/</a></li>
+</ul>
+<p><br></p>
+<p><strong>缺乏隔离性的应对</strong>：</p>
+<ul>
+<li><p>由于 Saga 事务不保证隔离性, 在极端情况下可能由于脏写无法完成回滚操作。</p>
+<ul>
+<li><blockquote>
+<p>比如举一个极端的例子, 分布式事务内先给用户A充值, 然后给用户B扣减余额, 如果在给A用户充值成功, 在事务提交以前, A用户把余额消费掉了, 如果事务发生回滚, 这时则没有办法进行补偿了。这就是缺乏隔离性造成的典型的问题, 实践中一般的应对方法是：</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>业务流程设计时遵循“<u>宁可长款, 不可短款</u>”的原则, 长款意思是客户少了钱机构多了钱, 以机构信誉可以给客户退款, 反之则是短款, 少的钱可能追不回来了。所以在<u>业务流程设计上一定是先扣款</u>。</p>
+</li>
+<li><p>有些业务场景可以允许让业务最终成功, 在回滚不了的情况下可以继续重试完成后面的流程, 所以状态机引擎除了提供“回滚”能力还需要提供“向前”恢复上下文继续执行的能力, 让业务最终执行成功, 达到最终一致性的目的。</p>
+</li>
+</ul>
+<p><br></p>
+<h2 id="5-5、【方案】事务消息-（补偿型）"><a href="#5-5、【方案】事务消息-（补偿型）" class="headerlink" title="5.5、【方案】事务消息 （补偿型）"></a>5.5、【方案】事务消息 （补偿型）</h2><p>属TCC的方案变种。</p>
+<p><strong>适用于场景有限：</strong> 限于可异步处理的分布式事务场景（即分支事务不影响主业务的决策）。</p>
+<p><br></p>
+<p>市面上支持事务消息的仅：RocketMQ。见《4.2、怎么选》。</p>
+<p><br></p>
+<p>RocketMQ 中间件思路大致为：</p>
+<ul>
+<li>第一阶段 Prepared消息，会拿到消息的地址</li>
+<li>第二阶段 执行本地事务</li>
+<li>第三阶段 通过第一阶段拿到的地址去访问消息，并修改状态（投递/撤销）。</li>
+</ul>
+<p>也就是说在业务方法内要向消息队列提交两次请求，一次发送消息和一次确认消息。如果确认消息发送失败了RocketMQ会定期扫描消息集群中的事务消息，这时候发现了Prepared消息，它会向消息发送者确认，所以生产方需要实现一个check接口，RocketMQ会根据发送端设置的策略来决定是回滚还是继续发送确认消息。这样就保证了消息发送与本地事务同时成功或同时失败。</p>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/a411ccaf753bdd3c91ab94fe224109044f3.jpg" alt="img"></p>
+<p>优点： 实现了最终一致性，不需要依赖本地数据库事务。一部分可用性保障转移给/借力MQ的能力。</p>
+<p>缺点： 实现难度大，主流MQ不支持。</p>
+<p><br></p>
+<h2 id="5-6、【方案】本地消息表-（最大努力通知）"><a href="#5-6、【方案】本地消息表-（最大努力通知）" class="headerlink" title="5.6、【方案】本地消息表 （最大努力通知）"></a>5.6、【方案】本地消息表 （最大努力通知）</h2><p>本地消息表与业务数据表处于同一个数据库中，这样就能利用本地事务来保证在对这两个表的操作满足事务特性，并且使用了消息队列来保证最终一致性。</p>
+<ol>
+<li>在分布式事务操作的一方完成写业务数据的操作之后向本地消息表发送一个消息，本地事务能保证这个消息一定会被写入本地消息表中。</li>
+<li>之后将本地消息表中的消息转发到 Kafka 等消息队列中，如果转发成功则将消息从本地消息表中删除，否则继续重新转发。</li>
+<li>在分布式事务操作的另一方从消息队列中读取一个消息，并执行消息中的操作。</li>
+</ol>
+<p><img src="/2020/11/29/分布式系统怎么思考分布式事务问题/915a02484990dda820410c8cad2389c5386.jpg" alt="img"></p>
+<p>优点： 一种非常经典/简单的实现，避免了分布式事务，实现了最终一致性。</p>
+<p>缺点： 消息表会耦合到业务系统中，如果没有封装好的解决方案，<em>（重点）会有很多杂活需要处理</em>。同样要考虑TCC方案下的多种技术因素，见《5.2、TCC》。在运行环境中，怀疑一切才能一切放心。</p>
+<p><br></p>
+<h1 id="3、再谈方案选型"><a href="#3、再谈方案选型" class="headerlink" title="3、再谈方案选型"></a>3、再谈方案选型</h1><p>看完上文后，大家应该有几个感觉：</p>
+<ul>
+<li>日常在聊的分布式事务的一些概念或名字中，部分是原理，部分是方案，彼此之间还存在演进关系。目前应能清晰的区分。</li>
+<li>在实现方案上，选择的余地很少。实战场景下，大多仍是根据业务场景自研一套代码为主，但自研方案的背后仍然是TCC/XA/Saga的原理。</li>
+<li>选择开源框架的很大目的是借力开源方案的事务管理器和其框架，本质原理都是一样的。</li>
+<li>懂分布式事务原理的基础上，更要掌握各方案背后要应对的问题<ul>
+<li>网络不可靠的问题</li>
+<li>数据全局隔离性的问题</li>
+<li>幂等的问题</li>
+<li>空回滚的问题</li>
+<li>事务管理器、应用节点不可靠的问题</li>
+<li>监控的问题</li>
+<li>……等等</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<p>关于分布式事务实现方案的选型/设计，笔者的心得和倾向：</p>
+<p>1、【价值取向】分布式事务方案在“性能”和“数据一致性”两方面是相悖的，在价值取向上，我更倾向于保障“性能”。</p>
+<blockquote>
+<p>原因：从影响面和可恢复性角度，分布式事务问题是小概率事件，留有补救余地就行，性能的损失是实打实的反应在线上每一个请求上。</p>
+</blockquote>
+<p>2、【编码风格】落实“宁可长款, 不可短款”的原则。优先做扣除行为。</p>
+<p>3、【做好监控】既然允许线上分布式事务问题的发生，那么就要有兜底应对的手段。笔者会要求团队在分布式事务的流程中认真打日志。并将此类日志作为线上业务监控范围，并与公司内部邮件系统、钉钉打通。做到一个有问题，秒级感知。</p>
+<p>4、【双重兜底】开发统计对账服务，对线上分布式事务数据做周期性巡检。对线上数据不一致情况做通知：工单、钉钉、邮件。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢你请我吃糖</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/assets/alipay.png" alt="黄老师 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/事务/" rel="tag"><i class="fa fa-tag"></i> 事务</a>
+          
+            <a href="/tags/分布式/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/15/一文就明白并发编程/" rel="next" title="一文就明白Java并发编程">
+                <i class="fa fa-chevron-left"></i> 一文就明白Java并发编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/15/你不得不知的Spring事务失效 8 大原因/" rel="prev" title="你不得不知的Spring事务失效 8 大原因">
+                你不得不知的Spring事务失效 8 大原因 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/assets/avatar.jpg"
+                alt="黄老师" />
+            
+              <p class="site-author-name" itemprop="name">黄老师</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/VeryJJ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chenjie@cai-inc.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+            <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+            <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+            <div class="widget-wrap">
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/API/">API</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API命名/">API命名</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API版本/">API版本</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API规范/">API规范</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/API设计原则/">API设计原则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataSource/">DataSource</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dubbo/">Dubbo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JStorm/">JStorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Netty/">Netty</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST/">REST</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RESTful/">RESTful</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RPC/">RPC</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RocketMQ/">RocketMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storm/">Storm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB/">WEB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cglib/">cglib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slf4j/">slf4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存/">内存</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存泄露/">内存泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式事务/">分布式事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分析图/">分析图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多线程/">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字节码/">字节码</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实时计算/">实时计算</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作观/">工作观</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库事务/">数据库事务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志框架/">日志框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/研发/">研发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/索引/">索引</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/错误码/">错误码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随机数/">随机数</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://hexo.io" title="Hexo.io" target="_blank">Hexo.io</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/apache/incubator-dubbo" title="Dubbo.io" target="_blank">Dubbo.io</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式系统-之-分布式事务问题"><span class="nav-number">1.</span> <span class="nav-text">分布式系统 之 分布式事务问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1、你怎么分享分布式事务？"><span class="nav-number">2.</span> <span class="nav-text">1、你怎么分享分布式事务？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、分布式事务的本质"><span class="nav-number">3.</span> <span class="nav-text">2、分布式事务的本质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、CAP原则和BASE理论"><span class="nav-number">4.</span> <span class="nav-text">3、CAP原则和BASE理论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1、CAP原则"><span class="nav-number">4.1.</span> <span class="nav-text">3.1、CAP原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2、BASE理论"><span class="nav-number">4.2.</span> <span class="nav-text">3.2、BASE理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3、为什么分布式系统倾向BASE理论的架构"><span class="nav-number">4.3.</span> <span class="nav-text">3.3、为什么分布式系统倾向BASE理论的架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、技术方案汇总"><span class="nav-number">5.</span> <span class="nav-text">4、技术方案汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1、按方案本质分类"><span class="nav-number">5.1.</span> <span class="nav-text">4.1、按方案本质分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2、怎么选"><span class="nav-number">5.2.</span> <span class="nav-text">4.2、怎么选</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、技术方案介绍"><span class="nav-number">6.</span> <span class="nav-text">5、技术方案介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1、【原理】2PC-（理论基石）"><span class="nav-number">6.1.</span> <span class="nav-text">5.1、【原理】2PC  （理论基石）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2、【原理】TCC-（补偿型）"><span class="nav-number">6.2.</span> <span class="nav-text">5.2、【原理】TCC  （补偿型）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3、【原理】-XA-（取决于数据库）"><span class="nav-number">6.3.</span> <span class="nav-text">5.3、【原理】 XA （取决于数据库）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4、【框架】Seata-（多种模式可选）"><span class="nav-number">6.4.</span> <span class="nav-text">5.4、【框架】Seata  （多种模式可选）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1、XA模式-（阻塞大，性能低）"><span class="nav-number">6.4.1.</span> <span class="nav-text">5.4.1、XA模式   （阻塞大，性能低）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2、AT模式-（折中的优选）"><span class="nav-number">6.4.2.</span> <span class="nav-text">5.4.2、AT模式 （折中的优选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-3、TCC模式-（提供框架）"><span class="nav-number">6.4.3.</span> <span class="nav-text">5.4.3、TCC模式  （提供框架）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-4、Saga模式-（多系统集成）"><span class="nav-number">6.4.4.</span> <span class="nav-text">5.4.4、Saga模式  （多系统集成）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5、【方案】事务消息-（补偿型）"><span class="nav-number">6.5.</span> <span class="nav-text">5.5、【方案】事务消息 （补偿型）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6、【方案】本地消息表-（最大努力通知）"><span class="nav-number">6.6.</span> <span class="nav-text">5.6、【方案】本地消息表 （最大努力通知）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、再谈方案选型"><span class="nav-number">7.</span> <span class="nav-text">3、再谈方案选型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄老师</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("ms2iTGzyGcsaMjQaqpcTMCXk-gzGzoHsz", "N0IXOAIeL1X5Gbvja58cUedH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

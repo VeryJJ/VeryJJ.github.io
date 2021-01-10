@@ -4,6 +4,234 @@
 
     
   <url>
+    <loc>https://veryjj.github.io/2020/11/15/%E4%B8%80%E6%96%87%E5%B0%B1%E6%98%8E%E7%99%BD%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-01-10T09:23:23.274Z</lastmod>
+    <data>
+        <display>
+        <title>一文就明白Java并发编程</title>
+        <pubTime>2020-11-15T05:03:38.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>多线程</tag>
+         
+        <tag>并发</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2020/12/19/slf4j%20MDC%E6%98%AF%E4%B8%AA%E5%A5%BD%E4%B8%9C%E8%A5%BF/</loc>
+    <lastmod>2021-01-10T09:22:03.172Z</lastmod>
+    <data>
+        <display>
+        <title>slf4j MDC是个好东西</title>
+        <pubTime>2020-12-19T12:26:57.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>日志框架</tag>
+         
+        <tag>slf4j</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2020/11/29/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E6%80%8E%E4%B9%88%E6%80%9D%E8%80%83%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2021-01-10T09:20:55.332Z</lastmod>
+    <data>
+        <display>
+        <title>分布式系统 之 分布式事务问题</title>
+        <pubTime>2020-11-29T10:29:42.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>事务</tag>
+         
+        <tag>分布式</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2021/01/01/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0Java%E5%AD%97%E8%8A%82%E7%A0%81Demo/</loc>
+    <lastmod>2021-01-10T09:19:46.361Z</lastmod>
+    <data>
+        <display>
+        <title>手把手教你Java字节码Demo</title>
+        <pubTime>2021-01-01T09:26:59.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>字节码</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2020/12/31/CGLIB%E4%B8%AD%E5%B8%B8%E7%94%A8API/</loc>
+    <lastmod>2021-01-10T09:18:15.333Z</lastmod>
+    <data>
+        <display>
+        <title>CGLIB中常用API</title>
+        <pubTime>2020-12-31T06:30:10.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>cglib</tag>
+         
+        <tag>字节码</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2020/10/19/%E6%8A%80%E6%9C%AF%E5%9B%A2%E9%98%9F%E8%AF%A5%E6%9C%89%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%A7%82/</loc>
+    <lastmod>2021-01-10T09:16:19.544Z</lastmod>
+    <data>
+        <display>
+        <title>技术团队该有的工作观</title>
+        <pubTime>2020-10-19T15:03:47.000Z</pubTime>
+        
+        <tag>工作观</tag>
+         
+        <tag>研发</tag>
+         
+         
+           
+             
+              <breadCrumb title="管理" url="https://veryjj.github.io/categories/%E7%AE%A1%E7%90%86/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2021/01/09/ThreadLocal%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2021-01-10T09:15:06.601Z</lastmod>
+    <data>
+        <display>
+        <title>ThreadLocal内存泄露知识点详解</title>
+        <pubTime>2021-01-09T08:48:18.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>ThreadLocal</tag>
+         
+        <tag>内存泄露</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2021/01/09/RocketMQ%E5%B0%8F%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2021-01-10T09:14:10.653Z</lastmod>
+    <data>
+        <display>
+        <title>RocketMQ小笔记</title>
+        <pubTime>2021-01-09T13:41:04.000Z</pubTime>
+        
+        <tag>RocketMQ</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://veryjj.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2020/12/15/%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E7%9A%84Spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%208%20%E5%A4%A7%E5%8E%9F%E5%9B%A0/</loc>
+    <lastmod>2021-01-10T09:11:53.873Z</lastmod>
+    <data>
+        <display>
+        <title>你不得不知的Spring事务失效 8 大原因</title>
+        <pubTime>2020-12-15T15:25:30.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Spring</tag>
+         
+        <tag>事务</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://veryjj.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://veryjj.github.io/2020/12/19/%E8%A7%A3%E5%86%B3homebrew%E9%95%BF%E6%97%B6%E9%97%B4%E5%81%9C%E5%9C%A8Updating%20Homebrew%20%E8%BF%99%E4%B8%AA%E6%AD%A5%E9%AA%A4/</loc>
+    <lastmod>2021-01-10T09:11:11.103Z</lastmod>
+    <data>
+        <display>
+        <title>解决homebrew长时间停在Updating Homebrew 这个步骤</title>
+        <pubTime>2020-12-19T14:33:11.000Z</pubTime>
+        
+        <tag>homebrew</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://veryjj.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://veryjj.github.io/2020/12/16/Java%20%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%9A%84%205%20%E7%A7%8D%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2021-01-10T09:08:45.594Z</lastmod>
     <data>
@@ -96,21 +324,6 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2021/01/10/%E8%A7%A3%E5%86%B3homebrew%E9%95%BF%E6%97%B6%E9%97%B4%E5%81%9C%E5%9C%A8Updating%20Homebrew%20%E8%BF%99%E4%B8%AA%E6%AD%A5%E9%AA%A4/</loc>
-    <lastmod>2021-01-10T08:10:05.000Z</lastmod>
-    <data>
-        <display>
-        <title></title>
-        <pubTime>2021-01-10T08:10:05.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://veryjj.github.io/2018/05/20/%E7%BF%BB%E8%AF%91-REST-API%E5%BF%85%E9%A1%BB%E6%98%AF%E8%B6%85%E6%96%87%E6%9C%AC%E9%A9%B1%E5%8A%A8%E7%9A%84/</loc>
     <lastmod>2020-10-05T14:14:57.309Z</lastmod>
     <data>
@@ -177,16 +390,16 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/</loc>
+    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</loc>
     <lastmod>2020-10-05T14:14:57.307Z</lastmod>
     <data>
         <display>
-        <title>服务API设计之——API命名规范</title>
-        <pubTime>2018-09-30T09:46:20.000Z</pubTime>
+        <title>服务API设计之——API设计原则</title>
+        <pubTime>2018-09-30T09:31:47.000Z</pubTime>
         
         <tag>API</tag>
          
-        <tag>API命名</tag>
+        <tag>API设计原则</tag>
          
          
            
@@ -221,16 +434,16 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</loc>
+    <loc>https://veryjj.github.io/2018/09/30/%E6%9C%8D%E5%8A%A1API%E8%AE%BE%E8%AE%A1%E4%B9%8B%E2%80%94%E2%80%94API%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/</loc>
     <lastmod>2020-10-05T14:14:57.307Z</lastmod>
     <data>
         <display>
-        <title>服务API设计之——API设计原则</title>
-        <pubTime>2018-09-30T09:31:47.000Z</pubTime>
+        <title>服务API设计之——API命名规范</title>
+        <pubTime>2018-09-30T09:46:20.000Z</pubTime>
         
         <tag>API</tag>
          
-        <tag>API设计原则</tag>
+        <tag>API命名</tag>
          
          
            
@@ -296,9 +509,9 @@
         <title>MySQL子查询很慢的问题分析</title>
         <pubTime>2018-05-04T07:29:46.000Z</pubTime>
         
-        <tag>SQL</tag>
-         
         <tag>数据库</tag>
+         
+        <tag>SQL</tag>
          
          
            
@@ -364,9 +577,9 @@
         <title>MySQL索引合并</title>
         <pubTime>2018-05-06T09:55:18.000Z</pubTime>
         
-        <tag>数据库</tag>
-         
         <tag>MySQL</tag>
+         
+        <tag>数据库</tag>
          
         <tag>索引</tag>
          
@@ -429,12 +642,12 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/04/22/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Dubbo%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E5%AD%A6/</loc>
+    <loc>https://veryjj.github.io/2018/05/02/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Provider%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2020-10-05T14:14:57.106Z</lastmod>
     <data>
         <display>
-        <title>Dubbo源码解析-Dubbo可以这么学</title>
-        <pubTime>2018-04-22T08:23:17.000Z</pubTime>
+        <title>Dubbo源码解析-Provider暴露服务</title>
+        <pubTime>2018-05-02T13:20:44.000Z</pubTime>
         
         <tag>Dubbo</tag>
          
@@ -451,12 +664,12 @@
 
     
   <url>
-    <loc>https://veryjj.github.io/2018/05/02/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Provider%E6%9A%B4%E9%9C%B2%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>https://veryjj.github.io/2018/04/22/Dubbo%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-Dubbo%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E5%AD%A6/</loc>
     <lastmod>2020-10-05T14:14:57.106Z</lastmod>
     <data>
         <display>
-        <title>Dubbo源码解析-Provider暴露服务</title>
-        <pubTime>2018-05-02T13:20:44.000Z</pubTime>
+        <title>Dubbo源码解析-Dubbo可以这么学</title>
+        <pubTime>2018-04-22T08:23:17.000Z</pubTime>
         
         <tag>Dubbo</tag>
          
